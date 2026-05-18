@@ -242,7 +242,7 @@ const DATA = {
     { sentence: "The lion is behind the zebra.",                 answer: true,  scene: "🦁🦓" },
     { sentence: "You have a bath when you are clean.",           answer: false, scene: "🛁" },
     { sentence: "A kitten is a baby cat.",                       answer: true,  scene: "🐱" },
-    { sentence: "People ride horses at the beach party.",        answer: true,  scene: "🐴🏖️" },
+    { sentence: "People ride horses at the farm party.",         answer: true,  scene: "🐴🌾" },
   ],
 
   // ----------------------------------------------------------
