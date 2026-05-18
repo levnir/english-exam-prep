@@ -22,6 +22,8 @@ const state = {
   score: 0,
   answered: false,
   lastResult: null,    // 'correct' | 'close' | 'wrong'
+  attempts: 0,         // wrong attempts on current typed question
+  revealed: false,     // true after 3 wrong attempts — correct answer shown
   // writing state
   writingFilled: [],
   writingWordUsed: [],
@@ -355,7 +357,7 @@ function renderExercise() {
     default: body = '<p>Loading...</p>';
   }
 
-  const feedback = state.answered ? renderFeedback() : '';
+  const feedback = state.lastResult ? renderFeedback() : '';
   const nextBtn  = state.answered
     ? `<button class="btn-next" data-action="next">${state.idx + 1 < total ? 'Next →' : 'See Results 🎉'}</button>`
     : '';
@@ -422,6 +424,7 @@ function renderSentenceType(ex) {
         autocomplete="off" autocorrect="off" spellcheck="false"
         ${state.answered ? 'disabled' : ''}
         value="${state.answered ? (state.typedAnswer || '') : ''}">
+
       <button class="btn-check" data-action="check-type" ${state.answered ? 'disabled' : ''}>
         ✔ Check
       </button>
@@ -483,6 +486,7 @@ function renderSoundType(ex) {
         style="font-size:1.8rem; font-weight:900; max-width:180px;"
         ${state.answered ? 'disabled' : ''}
         value="${state.answered ? (state.typedAnswer || '') : ''}">
+
       <button class="btn-check" data-action="check-sound" ${state.answered ? 'disabled' : ''}>
         ✔ Check
       </button>
@@ -543,6 +547,7 @@ function renderReadingType(ex) {
         autocomplete="off" autocorrect="off" spellcheck="false"
         ${state.answered ? 'disabled' : ''}
         value="${state.answered ? (state.typedAnswer || '') : ''}">
+
       <button class="btn-check" data-action="check-type" ${state.answered ? 'disabled' : ''}>
         ✔ Check
       </button>
@@ -607,6 +612,7 @@ function renderTimeType(ex) {
         autocomplete="off" autocorrect="off" spellcheck="false"
         ${state.answered ? 'disabled' : ''}
         value="${state.answered ? (state.typedAnswer || '') : ''}">
+
       <button class="btn-check" data-action="check-time" ${state.answered ? 'disabled' : ''}>
         ✔ Check
       </button>
@@ -619,31 +625,15 @@ function renderFeedback() {
   const r  = state.lastResult;
 
   if (r === 'correct') {
-    const msgs = ['Great job! 🎉', 'Excellent! ⭐', 'Perfect! 🌟', 'Well done! 👏', 'Amazing! 🦁'];
+    const msgs   = ['Great job! 🎉', 'Excellent! ⭐', 'Perfect! 🌟', 'Well done! 👏', 'Amazing! 🦁'];
     const hemsgs = ['!כל הכבוד', '!מצוין', '!נהדר', '!יופי'];
     return `<div class="feedback correct">
       ${msgs[Math.floor(Math.random() * msgs.length)]} &nbsp; ${hemsgs[Math.floor(Math.random() * hemsgs.length)]}
     </div>`;
   }
 
-  let correctDisplay = '';
-  if (ex.type === 'sentence-type' || ex.type === 'reading-type') {
-    correctDisplay = ex.answer;
-  } else if (ex.type === 'sound-type' || ex.type === 'sound-choose') {
-    correctDisplay = `${ex.blank.replace('__', `[${ex.sound}]`)}  →  ${ex.word}`;
-  } else if (ex.type === 'qa-match') {
-    correctDisplay = ex.correct;
-  } else if (ex.type === 'truefalse') {
-    correctDisplay = ex.answer ? '✅ True / נכון' : '❌ False / לא נכון';
-  } else if (ex.type === 'time-type') {
-    correctDisplay = ex.phrase;
-  } else if (ex.type === 'word-to-picture') {
-    correctDisplay = ex.correct;
-  } else if (ex.type === 'listen') {
-    correctDisplay = ex.options[ex.answer];
-  }
-
   if (r === 'close') {
+    const correctDisplay = getCorrectDisplay(ex);
     return `<div class="feedback close">
       Almost! Check the spelling 📝
       <span class="correct-answer">✏️ ${correctDisplay}</span>
@@ -651,11 +641,47 @@ function renderFeedback() {
     </div>`;
   }
 
+  // Wrong answer — typing exercises get retry/reveal treatment
+  const isTyped = ['sentence-type','reading-type','sound-type','time-type'].includes(ex.type);
+
+  if (isTyped && state.revealed) {
+    const correctDisplay = getCorrectDisplay(ex);
+    return `<div class="feedback wrong">
+      The answer is:
+      <span class="correct-answer" style="font-size:1.4rem;">✏️ ${correctDisplay}</span>
+      <span style="font-size:0.95rem;font-weight:700;">Now type it above to continue ↑</span>
+      <span style="font-size:0.85rem;direction:rtl;">כתבי את התשובה למעלה כדי להמשיך</span>
+    </div>`;
+  }
+
+  if (isTyped && !state.revealed) {
+    const left = 3 - state.attempts;
+    const leftWord = left === 1 ? 'try' : 'tries';
+    const leftHe   = left === 1 ? 'ניסיון נוסף אחד' : `עוד ${left} ניסיונות`;
+    return `<div class="feedback wrong">
+      Not quite — try again! 💪 &nbsp; ${left} ${leftWord} left
+      <span style="font-size:0.85rem;direction:rtl;">${leftHe}</span>
+    </div>`;
+  }
+
+  // Click-based wrong (no retries)
+  const correctDisplay = getCorrectDisplay(ex);
   return `<div class="feedback wrong">
-    Not quite. The answer is: ❌
+    Not quite. The answer is:
     <span class="correct-answer">✅ ${correctDisplay}</span>
     <span style="font-size:0.85rem;direction:rtl;">התשובה הנכונה למעלה</span>
   </div>`;
+}
+
+function getCorrectDisplay(ex) {
+  if (ex.type === 'sentence-type' || ex.type === 'reading-type') return ex.answer;
+  if (ex.type === 'sound-type' || ex.type === 'sound-choose') return `${ex.blank.replace('__', `[${ex.sound}]`)}  →  ${ex.word}`;
+  if (ex.type === 'qa-match')    return ex.correct;
+  if (ex.type === 'truefalse')   return ex.answer ? '✅ True / נכון' : '❌ False / לא נכון';
+  if (ex.type === 'time-type')   return ex.phrase;
+  if (ex.type === 'word-to-picture') return ex.correct;
+  if (ex.type === 'listen')      return ex.options[ex.answer];
+  return '';
 }
 
 // ── RESULT SCREEN ─────────────────────────────────────────────
@@ -766,6 +792,8 @@ function startSection(id) {
   state.lastResult = null;
   state.userChoice = null;
   state.typedAnswer = null;
+  state.attempts   = 0;
+  state.revealed   = false;
   state.listenPlayed = false;
   state.writingFilled = null;
   state.writingWordUsed = null;
@@ -802,12 +830,34 @@ function handleCheckType() {
   const inp = document.getElementById('typeInput');
   if (!inp || !inp.value.trim()) return;
   const ex = state.exercises[state.idx];
-  const result = checkTyped(inp.value, ex.answer);
-  state.answered = true;
   state.typedAnswer = inp.value;
-  state.lastResult = result;
-  if (result === 'correct' || result === 'close') state.score++;
-  playSound(result);
+
+  if (state.revealed) {
+    // Force-type mode: must match exactly (they can see the answer)
+    if (inp.value.trim().toLowerCase() === ex.answer.trim().toLowerCase()) {
+      state.answered = true;
+      state.lastResult = 'correct';
+      playSound('correct');
+      render();
+    } else {
+      playSound('wrong');
+      render();
+    }
+    return;
+  }
+
+  const result = checkTyped(inp.value, ex.answer);
+  if (result === 'correct' || result === 'close') {
+    state.answered = true;
+    state.lastResult = result;
+    if (state.attempts === 0) state.score++;
+    playSound(result);
+  } else {
+    state.attempts++;
+    state.lastResult = 'wrong';
+    if (state.attempts >= 3) state.revealed = true;
+    playSound('wrong');
+  }
   render();
 }
 
@@ -817,11 +867,19 @@ function handleCheckSound() {
   const ex = state.exercises[state.idx];
   const typed = inp.value.trim().toLowerCase();
   const correct = ex.sound.toLowerCase();
-  state.answered = true;
   state.typedAnswer = inp.value;
-  state.lastResult = typed === correct ? 'correct' : 'wrong';
-  if (typed === correct) state.score++;
-  playSound(state.lastResult);
+
+  if (typed === correct) {
+    state.answered = true;
+    state.lastResult = 'correct';
+    if (state.attempts === 0) state.score++;
+    playSound('correct');
+  } else {
+    state.attempts++;
+    state.lastResult = 'wrong';
+    if (state.attempts >= 3) state.revealed = true;
+    playSound('wrong');
+  }
   render();
 }
 
@@ -829,12 +887,33 @@ function handleCheckTime() {
   const inp = document.getElementById('typeInput');
   if (!inp || !inp.value.trim()) return;
   const ex = state.exercises[state.idx];
-  const result = checkTyped(inp.value, ex.phrase);
-  state.answered = true;
   state.typedAnswer = inp.value;
-  state.lastResult = result;
-  if (result === 'correct' || result === 'close') state.score++;
-  playSound(result);
+
+  if (state.revealed) {
+    if (inp.value.trim().toLowerCase() === ex.phrase.trim().toLowerCase()) {
+      state.answered = true;
+      state.lastResult = 'correct';
+      playSound('correct');
+      render();
+    } else {
+      playSound('wrong');
+      render();
+    }
+    return;
+  }
+
+  const result = checkTyped(inp.value, ex.phrase);
+  if (result === 'correct' || result === 'close') {
+    state.answered = true;
+    state.lastResult = result;
+    if (state.attempts === 0) state.score++;
+    playSound(result);
+  } else {
+    state.attempts++;
+    state.lastResult = 'wrong';
+    if (state.attempts >= 3) state.revealed = true;
+    playSound('wrong');
+  }
   render();
 }
 
@@ -883,6 +962,8 @@ function nextExercise() {
     state.lastResult = null;
     state.userChoice = null;
     state.typedAnswer = null;
+    state.attempts   = 0;
+    state.revealed   = false;
     state.listenPlayed = false;
     // Don't reset writing state here since writing is one big exercise
     state.screen = 'exercise';
