@@ -547,8 +547,8 @@ const DATA = {
     {
       id: "tricks_listen",
       title: "What Are You Good At?",
-      speech: "Teacher says: What are you good at, Yael? Yael says: I am good at tricks. Look! Teacher says: Wow, that is great! And what about you, Dan? Dan says: I am good at Arabic. Teacher says: Very good!",
-      question: "What is Yael good at?",
+      speech: "Teacher says: What are you good at, Maya? Maya says: I am good at tricks. Look! Teacher says: Wow, that is great! And what about you, Dan? Dan says: I am good at Arabic. Teacher says: Very good!",
+      question: "What is Maya good at?",
       options: ["Arabic", "Tricks", "Swimming"],
       answer: 1,
     },
