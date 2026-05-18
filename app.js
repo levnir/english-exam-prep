@@ -804,11 +804,12 @@ function handleChoice(idx, val) {
   const ex = state.exercises[state.idx];
 
   let isCorrect = false;
-  if (ex.type === 'word-to-picture')  isCorrect = (val === ex.correct);
-  else if (ex.type === 'qa-match')    isCorrect = (ex.options[idx] === ex.correct);
-  else if (ex.type === 'listen')      isCorrect = (idx === ex.answer);
+  if (ex.type === 'word-to-picture')   isCorrect = (val === ex.correct);
+  else if (ex.type === 'qa-match')     isCorrect = (ex.options[idx] === ex.correct);
+  else if (ex.type === 'listen')       isCorrect = (idx === ex.answer);
   else if (ex.type === 'sound-choose') isCorrect = (val === ex.sound);
   else if (ex.type === 'reading-choice') isCorrect = (idx === ex.answer);
+  else if (ex.type === 'truefalse')    isCorrect = (val === ex.answer);
 
   if (isCorrect) {
     state.answered = true;
