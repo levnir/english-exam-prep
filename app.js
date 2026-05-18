@@ -279,7 +279,7 @@ function buildExercises(sectionId) {
       return shuffle(DATA.writing).slice(0, 5).map(ex => ({ type: 'writing', ...ex }));
 
     case 'time':
-      return shuffle(DATA.clockTimes).slice(0, 12).map(item => ({
+      return shuffle(DATA.clockTimes).slice(0, 10).map(item => ({
         type: 'time-type', ...item
       }));
 
