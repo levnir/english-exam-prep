@@ -22,8 +22,9 @@ const state = {
   score: 0,
   answered: false,
   lastResult: null,    // 'correct' | 'close' | 'wrong'
-  attempts: 0,         // wrong attempts on current typed question
+  attempts: 0,         // wrong attempts on current question
   revealed: false,     // true after 3 wrong attempts — correct answer shown
+  wrongClicks: [],     // indices of already-tried wrong options (click exercises)
   // writing state
   writingFilled: [],
   writingWordUsed: [],
@@ -366,17 +367,28 @@ function renderExercise() {
 }
 
 // ── INDIVIDUAL EXERCISE RENDERERS ────────────────────────────
+// Helper: CSS class + disabled state for a click option
+// correctVal: the value or index that is correct
+// thisVal: the value or index of this button
+function optState(idx, isCorrect) {
+  if (state.answered) {
+    if (isCorrect) return { cls: 'correct', disabled: true };
+    if (state.wrongClicks.includes(idx)) return { cls: 'wrong', disabled: true };
+    return { cls: '', disabled: true };
+  }
+  if (state.revealed) {
+    if (isCorrect) return { cls: 'correct', disabled: false }; // must click this
+    return { cls: 'tried', disabled: true };
+  }
+  if (state.wrongClicks.includes(idx)) return { cls: 'tried', disabled: true };
+  return { cls: '', disabled: false };
+}
 
 function renderListen(ex) {
-  const listened = state.listenPlayed;
   const optBtns = ex.options.map((opt, i) => {
-    let cls = 'opt-btn';
-    if (state.answered) {
-      if (i === ex.answer) cls += ' correct';
-      else if (state.userChoice === i && i !== ex.answer) cls += ' wrong';
-    }
-    return `<button class="opt-btn ${cls === 'opt-btn' ? '' : cls.replace('opt-btn ', '')}"
-      data-action="choice" data-idx="${i}" ${state.answered ? 'disabled' : ''}>${opt}</button>`;
+    const { cls, disabled } = optState(i, i === ex.answer);
+    return `<button class="opt-btn ${cls}" data-action="choice"
+      data-idx="${i}" ${disabled ? 'disabled' : ''}>${opt}</button>`;
   }).join('');
 
   return `
@@ -393,13 +405,9 @@ function renderListen(ex) {
 
 function renderWordToPic(ex) {
   const optBtns = ex.options.map((opt, i) => {
-    let extra = '';
-    if (state.answered) {
-      if (opt === ex.correct) extra = 'correct';
-      else if (state.userChoice === i && opt !== ex.correct) extra = 'wrong';
-    }
-    return `<button class="opt-btn ${extra}" style="font-size:2rem;" data-action="choice"
-      data-idx="${i}" data-val="${opt}" ${state.answered ? 'disabled' : ''}>${opt}</button>`;
+    const { cls, disabled } = optState(i, opt === ex.correct);
+    return `<button class="opt-btn ${cls}" style="font-size:2rem;" data-action="choice"
+      data-idx="${i}" data-val="${opt}" ${disabled ? 'disabled' : ''}>${opt}</button>`;
   }).join('');
 
   return `
@@ -433,13 +441,9 @@ function renderSentenceType(ex) {
 
 function renderQAMatch(ex) {
   const optBtns = ex.options.map((opt, i) => {
-    let extra = '';
-    if (state.answered) {
-      if (opt === ex.correct) extra = 'correct';
-      else if (state.userChoice === i && opt !== ex.correct) extra = 'wrong';
-    }
-    return `<button class="opt-btn ${extra}" data-action="choice"
-      data-idx="${i}" ${state.answered ? 'disabled' : ''}>${opt}</button>`;
+    const { cls, disabled } = optState(i, opt === ex.correct);
+    return `<button class="opt-btn ${cls}" data-action="choice"
+      data-idx="${i}" ${disabled ? 'disabled' : ''}>${opt}</button>`;
   }).join('');
 
   return `
@@ -451,14 +455,10 @@ function renderSoundChoose(ex) {
   const highlighted = ex.blank.replace('__',
     `<span class="sound-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>`);
   const optBtns = ex.options.map((opt, i) => {
-    let extra = '';
-    if (state.answered) {
-      if (opt === ex.sound) extra = 'correct';
-      else if (state.userChoice === i && opt !== ex.sound) extra = 'wrong';
-    }
-    return `<button class="opt-btn ${extra}" style="font-size:1.4rem; font-weight:900;"
+    const { cls, disabled } = optState(i, opt === ex.sound);
+    return `<button class="opt-btn ${cls}" style="font-size:1.4rem; font-weight:900;"
       data-action="choice" data-idx="${i}" data-val="${opt}"
-      ${state.answered ? 'disabled' : ''}>${opt}</button>`;
+      ${disabled ? 'disabled' : ''}>${opt}</button>`;
   }).join('');
 
   return `
@@ -494,23 +494,21 @@ function renderSoundType(ex) {
 }
 
 function renderTrueFalse(ex) {
-  let trueExtra = '', falseExtra = '';
-  if (state.answered) {
-    if (ex.answer === true)  { trueExtra = 'style="background:#b7e4c7"'; }
-    else                     { falseExtra = 'style="background:#f5c6cb"'; }
-  }
+  // True = index 0, False = index 1 for optState purposes
+  const trueState  = optState(0, ex.answer === true);
+  const falseState = optState(1, ex.answer === false);
   return `
     <div class="ex-card">
       <span class="scene">${ex.scene}</span>
       <div class="sentence">${ex.sentence}</div>
     </div>
     <div class="tf-btns">
-      <button class="btn-true"  data-action="tf" data-val="true"
-        ${state.answered ? 'disabled' : ''} ${trueExtra}>
+      <button class="btn-true ${trueState.cls}"  data-action="tf" data-val="true"
+        ${trueState.disabled ? 'disabled' : ''}>
         ✅ True<br><span style="font-size:0.8rem;font-weight:600">נכון</span>
       </button>
-      <button class="btn-false" data-action="tf" data-val="false"
-        ${state.answered ? 'disabled' : ''} ${falseExtra}>
+      <button class="btn-false ${falseState.cls}" data-action="tf" data-val="false"
+        ${falseState.disabled ? 'disabled' : ''}>
         ❌ False<br><span style="font-size:0.8rem;font-weight:600">לא נכון</span>
       </button>
     </div>`;
@@ -518,13 +516,9 @@ function renderTrueFalse(ex) {
 
 function renderReadingChoice(ex) {
   const optBtns = ex.options.map((opt, i) => {
-    let extra = '';
-    if (state.answered) {
-      if (i === ex.answer) extra = 'correct';
-      else if (state.userChoice === i) extra = 'wrong';
-    }
-    return `<button class="opt-btn ${extra}" data-action="choice"
-      data-idx="${i}" ${state.answered ? 'disabled' : ''}>${opt}</button>`;
+    const { cls, disabled } = optState(i, i === ex.answer);
+    return `<button class="opt-btn ${cls}" data-action="choice"
+      data-idx="${i}" ${disabled ? 'disabled' : ''}>${opt}</button>`;
   }).join('');
 
   return `
@@ -641,35 +635,31 @@ function renderFeedback() {
     </div>`;
   }
 
-  // Wrong answer — typing exercises get retry/reveal treatment
   const isTyped = ['sentence-type','reading-type','sound-type','time-type'].includes(ex.type);
 
-  if (isTyped && state.revealed) {
+  if (state.revealed) {
     const correctDisplay = getCorrectDisplay(ex);
+    const action = isTyped
+      ? 'Now type it above to continue ↑'
+      : 'Click the correct answer above to continue ↑';
+    const actionHe = isTyped
+      ? 'כתבי את התשובה למעלה כדי להמשיך'
+      : 'לחצי על התשובה הנכונה למעלה כדי להמשיך';
     return `<div class="feedback wrong">
       The answer is:
       <span class="correct-answer" style="font-size:1.4rem;">✏️ ${correctDisplay}</span>
-      <span style="font-size:0.95rem;font-weight:700;">Now type it above to continue ↑</span>
-      <span style="font-size:0.85rem;direction:rtl;">כתבי את התשובה למעלה כדי להמשיך</span>
+      <span style="font-size:0.95rem;font-weight:700;">${action}</span>
+      <span style="font-size:0.85rem;direction:rtl;">${actionHe}</span>
     </div>`;
   }
 
-  if (isTyped && !state.revealed) {
-    const left = 3 - state.attempts;
-    const leftWord = left === 1 ? 'try' : 'tries';
-    const leftHe   = left === 1 ? 'ניסיון נוסף אחד' : `עוד ${left} ניסיונות`;
-    return `<div class="feedback wrong">
-      Not quite — try again! 💪 &nbsp; ${left} ${leftWord} left
-      <span style="font-size:0.85rem;direction:rtl;">${leftHe}</span>
-    </div>`;
-  }
-
-  // Click-based wrong (no retries)
-  const correctDisplay = getCorrectDisplay(ex);
+  // Not yet revealed — show tries remaining
+  const left = 3 - state.attempts;
+  const leftWord = left === 1 ? 'try' : 'tries';
+  const leftHe   = left === 1 ? 'ניסיון נוסף אחד' : `עוד ${left} ניסיונות`;
   return `<div class="feedback wrong">
-    Not quite. The answer is:
-    <span class="correct-answer">✅ ${correctDisplay}</span>
-    <span style="font-size:0.85rem;direction:rtl;">התשובה הנכונה למעלה</span>
+    Not quite — try again! 💪 &nbsp; ${left} ${leftWord} left
+    <span style="font-size:0.85rem;direction:rtl;">${leftHe}</span>
   </div>`;
 }
 
@@ -794,6 +784,7 @@ function startSection(id) {
   state.typedAnswer = null;
   state.attempts   = 0;
   state.revealed   = false;
+  state.wrongClicks = [];
   state.listenPlayed = false;
   state.writingFilled = null;
   state.writingWordUsed = null;
@@ -810,19 +801,30 @@ function startSection(id) {
 
 function handleChoice(idx, val) {
   const ex = state.exercises[state.idx];
-  state.answered = true;
-  state.userChoice = idx;
 
   let isCorrect = false;
-  if (ex.type === 'word-to-picture') isCorrect = (val === ex.correct);
-  else if (ex.type === 'qa-match')   isCorrect = (ex.options[idx] === ex.correct);
-  else if (ex.type === 'listen')     isCorrect = (idx === ex.answer);
+  if (ex.type === 'word-to-picture')  isCorrect = (val === ex.correct);
+  else if (ex.type === 'qa-match')    isCorrect = (ex.options[idx] === ex.correct);
+  else if (ex.type === 'listen')      isCorrect = (idx === ex.answer);
   else if (ex.type === 'sound-choose') isCorrect = (val === ex.sound);
   else if (ex.type === 'reading-choice') isCorrect = (idx === ex.answer);
 
-  state.lastResult = isCorrect ? 'correct' : 'wrong';
-  if (isCorrect) state.score++;
-  playSound(state.lastResult);
+  if (isCorrect) {
+    state.answered = true;
+    state.userChoice = idx;
+    state.lastResult = 'correct';
+    if (state.attempts === 0) state.score++;
+    playSound('correct');
+    render();
+    return;
+  }
+
+  // Wrong answer
+  if (!state.wrongClicks.includes(idx)) state.wrongClicks.push(idx);
+  state.attempts++;
+  state.lastResult = 'wrong';
+  if (state.attempts >= 3) state.revealed = true;
+  playSound('wrong');
   render();
 }
 
@@ -918,14 +920,9 @@ function handleCheckTime() {
 }
 
 function handleTF(val) {
-  const ex = state.exercises[state.idx];
-  state.answered = true;
-  state.userChoice = val;
-  const isCorrect = val === ex.answer;
-  state.lastResult = isCorrect ? 'correct' : 'wrong';
-  if (isCorrect) state.score++;
-  playSound(state.lastResult);
-  render();
+  // True = index 0, False = index 1 — reuse handleChoice logic
+  const idx = val === true ? 0 : 1;
+  handleChoice(idx, val);
 }
 
 function handleWordChip(widx) {
@@ -964,6 +961,7 @@ function nextExercise() {
     state.typedAnswer = null;
     state.attempts   = 0;
     state.revealed   = false;
+    state.wrongClicks = [];
     state.listenPlayed = false;
     // Don't reset writing state here since writing is one big exercise
     state.screen = 'exercise';
