@@ -522,6 +522,25 @@ const DATA = {
       ],
       wordBank: ["penguin", "fly", "sing", "swimming", "tricks"],
     },
+    {
+      id: "hospital_day",
+      title: "At the Hospital",
+      emoji: "🏥",
+      segments: [
+        { text: "The children are at the " },
+        { blank: true, answer: "hospital" },
+        { text: ". Neta is helping the " },
+        { blank: true, answer: "doctor" },
+        { text: ". Sagi is " },
+        { blank: true, answer: "clean" },
+        { text: "ing the floor. Emma is doing " },
+        { blank: true, answer: "tricks" },
+        { text: ". It is " },
+        { blank: true, answer: "great" },
+        { text: " to help people!" },
+      ],
+      wordBank: ["hospital", "doctor", "clean", "tricks", "great"],
+    },
   ],
 
   // ----------------------------------------------------------

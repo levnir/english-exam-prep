@@ -9,7 +9,7 @@ const SECTIONS = [
   { id: 'sounds',   emoji: '🔤', title: 'Sounds',            titleHe: 'צלילים',         color: '#45B7D1', desc: 'Complete the word with le, er, ir, or ar.',  descHe: 'השלימו את המילה עם le, er, ir, ar.' },
   { id: 'truefalse',emoji: '✅', title: 'True or False',     titleHe: 'נכון / לא נכון', color: '#2D6A4F', desc: 'Is the sentence true or false?',             descHe: 'האם המשפט נכון או לא נכון?' },
   { id: 'reading',  emoji: '📖', title: 'Reading',           titleHe: 'קריאה והבנה',   color: '#6C5CE7', desc: 'Read the passage and answer questions.',     descHe: 'קראו את הקטע וענו על השאלות.' },
-  { id: 'writing',  emoji: '✏️', title: 'Writing',           titleHe: 'כתיבה',          color: '#E17055', desc: 'Fill in the passage from the word bank.',    descHe: 'מלאו את הקטע ממאגר המילים.' },
+  { id: 'writing',  emoji: '✏️', title: 'Fill in the Blanks', titleHe: 'השלמת משפטים',   color: '#E17055', desc: 'Fill in the blanks using the word bank.',    descHe: 'מלאו את החסר ממאגר המילים.' },
   { id: 'time',     emoji: '🕐', title: 'What Time Is It?',  titleHe: 'מה השעה?',       color: '#FDCB6E', desc: 'Look at the clock and write the time.',      descHe: 'הסתכלו על השעון וכתבו את השעה.' },
 ];
 
@@ -25,9 +25,9 @@ const state = {
   attempts: 0,         // wrong attempts on current question
   revealed: false,     // true after 3 wrong attempts — correct answer shown
   wrongClicks: [],     // indices of already-tried wrong options (click exercises)
-  // writing state
-  writingFilled: [],
-  writingWordUsed: [],
+  // writing state (indices into wordBank; locked = correct and permanent)
+  writingFilled: null,
+  writingLocked: null,
   // progress saved per section
   progress: JSON.parse(localStorage.getItem('abigail_progress') || '{}'),
 };
@@ -276,7 +276,7 @@ function buildExercises(sectionId) {
     }
 
     case 'writing':
-      return [pick(DATA.writing, 1)[0]].map(ex => ({ type: 'writing', ...ex }));
+      return shuffle(DATA.writing).slice(0, 5).map(ex => ({ type: 'writing', ...ex }));
 
     case 'time':
       return shuffle(DATA.clockTimes).slice(0, 12).map(item => ({
@@ -549,35 +549,42 @@ function renderReadingType(ex) {
 }
 
 function renderWriting(ex) {
+  const blanksCount = ex.segments.filter(s => s.blank).length;
   if (!state.writingFilled) {
-    state.writingFilled = new Array(ex.segments.filter(s => s.blank).length).fill(null);
-    state.writingWordUsed = new Array(ex.wordBank.length).fill(false);
+    state.writingFilled = new Array(blanksCount).fill(null);
+    state.writingLocked = new Array(blanksCount).fill(false);
   }
 
-  let blankIdx = 0;
+  let bi = 0;
   const passageHTML = ex.segments.map(seg => {
     if (!seg.blank) return `<span>${seg.text}</span>`;
-    const val = state.writingFilled[blankIdx];
-    const filled = val !== null;
-    const wrongFill = filled && state.answered && val.toLowerCase() !== seg.answer.toLowerCase();
-    const cls = filled
-      ? (wrongFill ? 'fill-blank wrong-fill' : 'fill-blank filled')
-      : 'fill-blank';
-    const display = filled ? val : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-    const bi = blankIdx++;
-    return `<span class="${cls}" data-blank="${bi}">${display}</span>`;
+    const widx   = state.writingFilled[bi];
+    const locked = state.writingLocked[bi];
+    const filled = widx !== null;
+    const displayVal = filled ? ex.wordBank[widx] : null;
+    const cls = locked ? 'fill-blank filled'
+              : filled ? 'fill-blank filled'
+              : 'fill-blank';
+    const style = locked ? 'background:#d8f3dc;border-color:#52B788;' : '';
+    const action = (!locked && filled) ? `data-action="blank-click" data-blank="${bi}" style="cursor:pointer;${style}"` : `style="${style}"`;
+    const display = filled ? displayVal : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    const idx = bi++;
+    return `<span class="${cls}" ${action} data-blank="${idx}">${display}</span>`;
   }).join('');
 
   const wordChips = ex.wordBank.map((w, i) => {
-    const used = state.writingWordUsed[i];
+    const used = state.writingFilled.includes(i);
     return `<button class="word-chip" data-action="word-chip" data-widx="${i}"
       ${used ? 'disabled' : ''}>${w}</button>`;
   }).join('');
 
-  const allFilled = state.writingFilled.every(v => v !== null);
+  const allFilled = state.writingFilled.every((v, i) => v !== null || state.writingLocked[i]);
+  const lockedCount = state.writingLocked.filter(Boolean).length;
   const checkBtn = !state.answered
-    ? `<button class="btn-check" data-action="check-writing"
-        ${allFilled ? '' : 'disabled'}>✔ Check All</button>`
+    ? `<button class="btn-check" data-action="check-writing" ${allFilled ? '' : 'disabled'}>✔ Check</button>`
+    : '';
+  const progressNote = lockedCount > 0 && !state.answered
+    ? `<div style="text-align:center;font-size:0.9rem;color:#2D6A4F;font-weight:700;">✅ ${lockedCount} / ${blanksCount} correct so far</div>`
     : '';
 
   return `
@@ -585,6 +592,7 @@ function renderWriting(ex) {
       <span class="scene">${ex.emoji}</span>
       <div class="passage-text">${passageHTML}</div>
     </div>
+    ${progressNote}
     <div class="word-bank">${wordChips}</div>
     <div style="text-align:center;">${checkBtn}</div>`;
 }
@@ -633,6 +641,17 @@ function renderFeedback() {
     return `<div class="feedback close">
       Almost! Check your spelling carefully 📝 &nbsp; ${left} ${leftWord} left
       <span style="font-size:0.85rem;direction:rtl;">כמעט! בדקי שוב את האיות — ${leftHe}</span>
+    </div>`;
+  }
+
+  // Writing has its own retry feedback (no reveal — word bank is always visible)
+  if (ex.type === 'writing' && !state.answered) {
+    const locked = state.writingLocked ? state.writingLocked.filter(Boolean).length : 0;
+    const total  = ex.segments.filter(s => s.blank).length;
+    const wrong  = total - locked;
+    return `<div class="feedback wrong">
+      ${locked > 0 ? `✅ ${locked} correct` : ''} ❌ ${wrong} wrong — wrong words cleared, try again! 💪
+      <span style="font-size:0.85rem;direction:rtl;">המילים השגויות נמחקו — נסי שוב</span>
     </div>`;
   }
 
@@ -747,6 +766,8 @@ function handleClick(e) {
     handleTF(el.dataset.val === 'true');
   } else if (action === 'word-chip') {
     handleWordChip(parseInt(el.dataset.widx));
+  } else if (action === 'blank-click') {
+    handleBlankClick(parseInt(el.dataset.blank));
   } else if (action === 'check-writing') {
     handleCheckWriting();
   } else if (action === 'next') {
@@ -788,7 +809,7 @@ function startSection(id) {
   state.wrongClicks = [];
   state.listenPlayed = false;
   state.writingFilled = null;
-  state.writingWordUsed = null;
+  state.writingLocked = null;
   state.screen = 'exercise';
 
   // Auto-speak first listening exercise
@@ -931,26 +952,47 @@ function handleTF(val) {
 function handleWordChip(widx) {
   const ex = state.exercises[state.idx];
   if (!ex || state.answered) return;
-  const blanks = ex.segments.filter(s => s.blank);
-  const nextBlank = state.writingFilled.findIndex(v => v === null);
+  // Find next unfilled, unlocked blank
+  const nextBlank = state.writingFilled.findIndex((v, i) => v === null && !state.writingLocked[i]);
   if (nextBlank === -1) return;
-  state.writingFilled[nextBlank] = ex.wordBank[widx];
-  state.writingWordUsed[widx] = true;
+  state.writingFilled[nextBlank] = widx;
+  render();
+}
+
+function handleBlankClick(blankIdx) {
+  const ex = state.exercises[state.idx];
+  if (!ex || state.answered) return;
+  if (state.writingLocked[blankIdx]) return; // locked = correct, can't remove
+  state.writingFilled[blankIdx] = null;
   render();
 }
 
 function handleCheckWriting() {
   const ex = state.exercises[state.idx];
   const blanks = ex.segments.filter(s => s.blank);
-  let correct = 0;
+  let newlyCorrect = 0;
+
   blanks.forEach((seg, i) => {
-    if (state.writingFilled[i] && state.writingFilled[i].toLowerCase() === seg.answer.toLowerCase()) correct++;
+    if (state.writingLocked[i]) return; // already correct from a previous check
+    const widx = state.writingFilled[i];
+    if (widx !== null && ex.wordBank[widx].toLowerCase() === seg.answer.toLowerCase()) {
+      state.writingLocked[i] = true;
+      newlyCorrect++;
+    } else {
+      state.writingFilled[i] = null; // clear wrong blank, word returns to bank
+    }
   });
-  state.answered = true;
-  state.score = correct;
-  state.exercises[state.idx]._writingTotal = blanks.length;
-  state.lastResult = correct === blanks.length ? 'correct' : correct > 0 ? 'close' : 'wrong';
-  playSound(state.lastResult);
+
+  const allLocked = state.writingLocked.every(Boolean);
+  if (allLocked) {
+    state.answered = true;
+    state.lastResult = 'correct';
+    state.score++;
+    playSound('correct');
+  } else {
+    state.lastResult = 'wrong';
+    playSound('wrong');
+  }
   render();
 }
 
@@ -966,7 +1008,8 @@ function nextExercise() {
     state.revealed   = false;
     state.wrongClicks = [];
     state.listenPlayed = false;
-    // Don't reset writing state here since writing is one big exercise
+    state.writingFilled = null;
+    state.writingLocked = null;
     state.screen = 'exercise';
 
     // Auto-speak next listening exercise
