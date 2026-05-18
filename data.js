@@ -563,7 +563,7 @@ const DATA = {
     {
       id: "bella_listen",
       title: "How Is Bella?",
-      speech: "A says: How is your dog Bella today? B says: She is tired and dirty. A says: Oh! Give her a bath. B says: Good idea. She will be happy after a bath.",
+      speech: "Dana says: How is your dog Bella today? Noa says: She is tired and dirty. Dana says: Oh! Give her a bath. Noa says: Good idea. She will be happy after a bath.",
       question: "How is Bella?",
       options: ["Hungry and thirsty", "Tired and dirty", "Scared and cool"],
       answer: 1,
