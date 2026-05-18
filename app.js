@@ -626,12 +626,13 @@ function renderFeedback() {
     </div>`;
   }
 
-  if (r === 'close') {
-    const correctDisplay = getCorrectDisplay(ex);
+  if (r === 'close' && !state.revealed) {
+    const left = 3 - state.attempts;
+    const leftWord = left === 1 ? 'try' : 'tries';
+    const leftHe   = left === 1 ? 'ניסיון נוסף אחד' : `עוד ${left} ניסיונות`;
     return `<div class="feedback close">
-      Almost! Check the spelling 📝
-      <span class="correct-answer">✏️ ${correctDisplay}</span>
-      <span style="font-size:0.85rem;direction:rtl;">כמעט! בדקו את האיות</span>
+      Almost! Check your spelling carefully 📝 &nbsp; ${left} ${leftWord} left
+      <span style="font-size:0.85rem;direction:rtl;">כמעט! בדקי שוב את האיות — ${leftHe}</span>
     </div>`;
   }
 
@@ -849,16 +850,17 @@ function handleCheckType() {
   }
 
   const result = checkTyped(inp.value, ex.answer);
-  if (result === 'correct' || result === 'close') {
+  if (result === 'correct') {
     state.answered = true;
-    state.lastResult = result;
+    state.lastResult = 'correct';
     if (state.attempts === 0) state.score++;
-    playSound(result);
+    playSound('correct');
   } else {
+    // 'close' and 'wrong' both require another attempt
     state.attempts++;
-    state.lastResult = 'wrong';
+    state.lastResult = result;
     if (state.attempts >= 3) state.revealed = true;
-    playSound('wrong');
+    playSound(result);
   }
   render();
 }
@@ -905,16 +907,16 @@ function handleCheckTime() {
   }
 
   const result = checkTyped(inp.value, ex.phrase);
-  if (result === 'correct' || result === 'close') {
+  if (result === 'correct') {
     state.answered = true;
-    state.lastResult = result;
+    state.lastResult = 'correct';
     if (state.attempts === 0) state.score++;
-    playSound(result);
+    playSound('correct');
   } else {
     state.attempts++;
-    state.lastResult = 'wrong';
+    state.lastResult = result;
     if (state.attempts >= 3) state.revealed = true;
-    playSound('wrong');
+    playSound(result);
   }
   render();
 }
