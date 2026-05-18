@@ -137,6 +137,62 @@ function clockSVG(h, m) {
   </svg>`;
 }
 
+// ── SOUND EFFECTS ────────────────────────────────────────────
+let _audioCtx = null;
+function getAudioCtx() {
+  if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return _audioCtx;
+}
+
+function playSound(result) {
+  try {
+    const ctx = getAudioCtx();
+    if (result === 'correct') {
+      // Two-note ascending chime: E5 → A5
+      [659, 880].forEach((freq, i) => {
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        const t = ctx.currentTime + i * 0.13;
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.22, t + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+        osc.start(t);
+        osc.stop(t + 0.28);
+      });
+    } else if (result === 'close') {
+      // Single mid tone: A4
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.value = 440;
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.25);
+    } else {
+      // Short low buzz: sawtooth at C3
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sawtooth';
+      osc.frequency.value = 180;
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.10, ctx.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.22);
+    }
+  } catch (e) { /* audio not supported — fail silently */ }
+}
+
 // ── TTS ───────────────────────────────────────────────────────
 function speak(text) {
   if (!window.speechSynthesis) return;
@@ -738,6 +794,7 @@ function handleChoice(idx, val) {
 
   state.lastResult = isCorrect ? 'correct' : 'wrong';
   if (isCorrect) state.score++;
+  playSound(state.lastResult);
   render();
 }
 
@@ -750,6 +807,7 @@ function handleCheckType() {
   state.typedAnswer = inp.value;
   state.lastResult = result;
   if (result === 'correct' || result === 'close') state.score++;
+  playSound(result);
   render();
 }
 
@@ -763,6 +821,7 @@ function handleCheckSound() {
   state.typedAnswer = inp.value;
   state.lastResult = typed === correct ? 'correct' : 'wrong';
   if (typed === correct) state.score++;
+  playSound(state.lastResult);
   render();
 }
 
@@ -775,6 +834,7 @@ function handleCheckTime() {
   state.typedAnswer = inp.value;
   state.lastResult = result;
   if (result === 'correct' || result === 'close') state.score++;
+  playSound(result);
   render();
 }
 
@@ -785,6 +845,7 @@ function handleTF(val) {
   const isCorrect = val === ex.answer;
   state.lastResult = isCorrect ? 'correct' : 'wrong';
   if (isCorrect) state.score++;
+  playSound(state.lastResult);
   render();
 }
 
@@ -810,6 +871,7 @@ function handleCheckWriting() {
   state.score = correct;
   state.exercises[state.idx]._writingTotal = blanks.length;
   state.lastResult = correct === blanks.length ? 'correct' : correct > 0 ? 'close' : 'wrong';
+  playSound(state.lastResult);
   render();
 }
 
