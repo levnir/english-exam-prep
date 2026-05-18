@@ -718,10 +718,7 @@ function renderResult() {
 
 // ── EVENT HANDLERS ────────────────────────────────────────────
 function attach() {
-  document.getElementById('app').addEventListener('click', handleClick);
-  document.getElementById('app').addEventListener('keydown', handleKeydown);
-
-  // Auto-focus typing inputs
+  // Auto-focus typing inputs after each render
   const inp = document.getElementById('typeInput');
   if (inp) setTimeout(() => inp.focus(), 80);
 
@@ -769,17 +766,20 @@ function handleClick(e) {
 }
 
 function handleKeydown(e) {
-  if (e.key === 'Enter') {
-    if (state.answered) {
-      nextExercise();
-      return;
-    }
-    const ex = state.exercises[state.idx];
-    if (!ex) return;
-    if (ex.type === 'sentence-type' || ex.type === 'reading-type') handleCheckType();
-    if (ex.type === 'sound-type') handleCheckSound();
-    if (ex.type === 'time-type') handleCheckTime();
+  if (e.key !== 'Enter') return;
+  if (state.screen !== 'exercise') return;
+
+  if (state.answered) {
+    e.preventDefault();
+    nextExercise();
+    return;
   }
+
+  const ex = state.exercises[state.idx];
+  if (!ex) return;
+  if (ex.type === 'sentence-type' || ex.type === 'reading-type') handleCheckType();
+  else if (ex.type === 'sound-type') handleCheckSound();
+  else if (ex.type === 'time-type') handleCheckTime();
 }
 
 // ── ACTION HANDLERS ───────────────────────────────────────────
@@ -984,6 +984,11 @@ function nextExercise() {
 }
 
 // ── INIT ─────────────────────────────────────────────────────
+// Attach click and keydown once on document — avoids duplicate listeners
+// that would accumulate if attached inside render/attach on #app.
+document.addEventListener('click', handleClick);
+document.addEventListener('keydown', handleKeydown);
+
 // Wait for voices to load before first render (TTS quirk)
 if (window.speechSynthesis) {
   window.speechSynthesis.onvoiceschanged = () => {};
