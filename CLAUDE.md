@@ -243,6 +243,8 @@ The app is **complete and live**. All 7 sections are working. The most recently 
 - `data.js` rewritten with trimmed content; old full content archived as `data-unit3-full.js`
 - `ar` sound removed from sounds section (no supporting words in the given pages)
 - CONFIG block added to top of `data.js` for easy per-exam customization
+- Sounds exercise refactored to derive sound list dynamically from `DATA.sounds` —
+  adding/removing a sound in `data.js` now flows through automatically with no `app.js` changes
 
 **No outstanding bugs or pending tasks.** Waiting for next user review feedback.
 
