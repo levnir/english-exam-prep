@@ -558,7 +558,7 @@ const DATA = {
     {
       id: "time_listen",
       title: "What Time Is It?",
-      speech: "Mom says: Leo, what time is it? Leo says: It is half past seven. Mom says: Are you hungry? Leo says: Yes! I want to eat dinner. Mom says: OK, let us eat.",
+      speech: "Mom says: Tom, what time is it? Tom says: It is half past seven. Mom says: Are you hungry? Tom says: Yes! I want to eat dinner. Mom says: OK, let us eat.",
       question: "What time is it?",
       options: ["It's seven o'clock", "It's half past six", "It's half past seven"],
       answer: 2,
