@@ -16,8 +16,8 @@ The exam covers **Jet 2, Unit 3: "Animals Are Cool"** and has 6 parts (Listening
 ```
 index.html          — shell only; loads fonts, style.css, data.js, app.js
 style.css           — all styles (~420 lines)
-data.js             — all content / game data (~624 lines)
-app.js              — all game logic (~1042 lines)
+data.js             — CONFIG block + all content / game data (~640 lines)
+app.js              — all game logic (~1043 lines)
 exam-material-summary.txt  — detailed summary of exam material (all 10 sections)
 chat-history.txt    — human-readable log of the full first conversation session
 ```
@@ -99,6 +99,27 @@ const state = {
 **Score:** only incremented if `state.attempts === 0` when correct answer given.
 
 **`optState(idx, isCorrect)` helper** — centralizes button CSS class + disabled logic for all click exercises. Called from every click-exercise renderer.
+
+---
+
+## Config (data.js — top of file)
+
+All exam-specific metadata lives in a `CONFIG` object at the top of `data.js`. To adapt the app for a new exam, only these 7 lines need to change:
+
+```js
+const CONFIG = {
+  studentName:     "Abigail",
+  studentNameHe:   "אביגיל",
+  examDate:        "2026-05-26",      // ISO format YYYY-MM-DD
+  examDateDisplay: "May 26",          // shown in countdown bar
+  unit:            "Jet 2 · Unit 3 · Animals Are Cool",
+  unitEmojis:      "🦁🐢🐧",
+  unitHe:          "הכנה למבדק — יחידה 3",
+  storageKey:      "abigail_progress", // localStorage key
+};
+```
+
+`app.js` reads all of these — no hard-coded names, dates, or titles anywhere in the logic.
 
 ---
 
