@@ -241,16 +241,16 @@ function buildExercises(sectionId) {
     }
 
     case 'sounds': {
-      // Mix guided (choose) and typing (type) for each of the 4 sounds
-      const bySound = { le: [], er: [], ir: [] };
+      const soundList = [...new Set(DATA.sounds.map(s => s.sound))];
+      const bySound = Object.fromEntries(soundList.map(s => [s, []]));
       DATA.sounds.forEach(s => bySound[s.sound].push(s));
       let exs = [];
-      for (const snd of ['le', 'er', 'ir']) {
+      for (const snd of soundList) {
         const items = shuffle(bySound[snd]).slice(0, 4);
         items.forEach((item, i) => {
           if (i < 2) {
             exs.push({ type: 'sound-choose', ...item,
-              options: shuffle(['le', 'er', 'ir']) });
+              options: shuffle([...soundList]) });
           } else {
             exs.push({ type: 'sound-type', ...item });
           }
