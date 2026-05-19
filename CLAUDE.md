@@ -14,12 +14,13 @@ The exam covers **Jet 2, Unit 3: "Animals Are Cool"** and has 6 parts (Listening
 ## File structure
 
 ```
-index.html          — shell only; loads fonts, style.css, data.js, app.js
-style.css           — all styles (~420 lines)
-data.js             — CONFIG block + all content / game data (~640 lines)
-app.js              — all game logic (~1043 lines)
-exam-material-summary.txt  — detailed summary of exam material (all 10 sections)
-chat-history.txt    — human-readable log of the full first conversation session
+index.html               — shell only; loads fonts, style.css, data.js, app.js
+style.css                — all styles (~420 lines)
+data.js                  — CONFIG block + exam content trimmed to green p01–p16 + yellow p01–p03
+app.js                   — all game logic (~1043 lines)
+data-unit3-full.js       — ARCHIVE: full unit 3 data (all pages); swap in as data.js if needed
+exam-material-summary.txt— detailed summary of exam material (all 10 sections)
+chat-history.txt         — human-readable log of the full first conversation session
 ```
 
 No build tools, no frameworks, no npm. Pure HTML/CSS/JS.
@@ -71,7 +72,7 @@ const state = {
 |----|-------|-----------|----------------|
 | `listen` | Listen & Mark | 5 | `listen` (TTS + click) |
 | `vocab` | Vocabulary | ~22 (8 word-to-pic + 8 sentence-type + 6 qa-match, shuffled) | `word-to-picture`, `sentence-type`, `qa-match` |
-| `sounds` | Sounds | 16 (4 per sound le/er/ir/ar; 2 choose + 2 type each) | `sound-choose`, `sound-type` |
+| `sounds` | Sounds | 12 (4 per sound le/er/ir; 2 choose + 2 type each) | `sound-choose`, `sound-type` |
 | `truefalse` | True or False | 12 of 20 | `truefalse` |
 | `reading` | Reading | 5 questions from 1 random passage | `reading-choice`, `reading-type` |
 | `writing` | Fill in the Blanks | 5 | `writing` |
@@ -126,16 +127,16 @@ const CONFIG = {
 ## Data (data.js)
 
 ```
-DATA.vocabulary[]        — 51 words: word, emoji, hebrew
-DATA.wordToPicture[]     — 26 items: word, correct emoji, 3 distractor emojis
+DATA.vocabulary[]        — 34 words: word, emoji, hebrew (trimmed to green p01–p16, yellow p01–p03)
+DATA.wordToPicture[]     — 20 items: word, correct emoji, 3 distractor emojis
 DATA.sentenceCompletion[]— 24 items: sentence (with ___), answer, emoji, hint (Hebrew)
 DATA.qaMatching[]        — 10 Q&A pairs: question, correct answer, 3 wrong answers
-DATA.sounds[]            — 28 items (7 per sound le/er/ir/ar): word, blank, sound, emoji
+DATA.sounds[]            — 16 items (le×5, er×6, ir×5): word, blank, sound, emoji — NO ar
 DATA.trueFalse[]         — 20 items: sentence, answer (bool), scene emoji
-DATA.passages[]          — 5 passages: bella, ari, peter, hospital, safari
+DATA.passages[]          — 3 passages: safari, bella, peter_penguin
                            Each has .text and .questions[] ({q, type, options?, answer})
-DATA.writing[]           — 5 fill-in exercises: safari_day, party, busy_day,
-                           peter_writes, hospital_day
+DATA.writing[]           — 5 fill-in exercises: safari_day, bella_day, peter_penguin,
+                           animal_riddles, good_at
                            Each has .segments[] ({text} or {blank:true, answer}) and .wordBank[]
 DATA.listening[]         — 5 TTS exercises: speech string, question, options[], answer index
 DATA.clockTimes[]        — 24 times: h (1–12), m (0 or 30), phrase ("It's X o'clock" / "It's half past X")
@@ -145,9 +146,11 @@ DATA.clockTimes[]        — 24 times: h (1–12), m (0 or 30), phrase ("It's X 
 
 ## Sounds (exam Part 3)
 
-Four sounds practiced: `le` (end of word), `er` (end), `ir` (middle), `ar` (middle/end).
+Three sounds practiced: `le` (end of word), `er` (end), `ir` (middle). **`ar` is not in scope** — the given pages (green p01–p16, yellow p01–p03) contain no `ar` practice words.
 
-For each sound, 4 words selected: 2 shown as `sound-choose` (click le/er/ir/ar), 2 as `sound-type` (type the missing sound).
+For each sound, 4 words selected: 2 shown as `sound-choose` (click le/er/ir), 2 as `sound-type` (type the missing sound).
+
+Full word list: **le** — turtle, table, apple, people, smile; **er** — dinner, water, winter, brother, summer, paper; **ir** — dirty, shirt, bird, thirsty, girl.
 
 ---
 
@@ -233,12 +236,13 @@ Live site updates in ~1–2 minutes. No build step.
 
 ---
 
-## Where we left off (as of 2026-05-18)
+## Where we left off (as of 2026-05-19)
 
-The app is **complete and live**. All 7 sections are working. The user (Abigail's father) is reviewing the app section by section and providing corrections. The most recently completed tasks were:
-- Clock section reduced from 12 to 10 questions
-- `exam-material-summary.txt` created (10-section detailed exam material reference)
-- `chat-history.txt` created (readable log of the full first session, 97 messages)
+The app is **complete and live**. All 7 sections are working. The most recently completed work:
+- Material narrowed to green p01–p16 + yellow p01–p03 (verified by re-reading all 19 pages)
+- `data.js` rewritten with trimmed content; old full content archived as `data-unit3-full.js`
+- `ar` sound removed from sounds section (no supporting words in the given pages)
+- CONFIG block added to top of `data.js` for easy per-exam customization
 
 **No outstanding bugs or pending tasks.** Waiting for next user review feedback.
 

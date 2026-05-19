@@ -6,7 +6,7 @@
 const SECTIONS = [
   { id: 'listen',   emoji: '👂', title: 'Listen & Mark',    titleHe: 'האזנה',          color: '#E63946', desc: 'Listen to the conversation and answer.',   descHe: 'האזינו לשיחה וענו על השאלה.' },
   { id: 'vocab',    emoji: '📚', title: 'Vocabulary',        titleHe: 'אוצר מילים',     color: '#4ECDC4', desc: 'Match words to pictures and fill sentences.', descHe: 'התאימו מילים לתמונות והשלימו משפטים.' },
-  { id: 'sounds',   emoji: '🔤', title: 'Sounds',            titleHe: 'צלילים',         color: '#45B7D1', desc: 'Complete the word with le, er, ir, or ar.',  descHe: 'השלימו את המילה עם le, er, ir, ar.' },
+  { id: 'sounds',   emoji: '🔤', title: 'Sounds',            titleHe: 'צלילים',         color: '#45B7D1', desc: 'Complete the word with le, er, or ir.',      descHe: 'השלימו את המילה עם le, er, ir.' },
   { id: 'truefalse',emoji: '✅', title: 'True or False',     titleHe: 'נכון / לא נכון', color: '#2D6A4F', desc: 'Is the sentence true or false?',             descHe: 'האם המשפט נכון או לא נכון?' },
   { id: 'reading',  emoji: '📖', title: 'Reading',           titleHe: 'קריאה והבנה',   color: '#6C5CE7', desc: 'Read the passage and answer questions.',     descHe: 'קראו את הקטע וענו על השאלות.' },
   { id: 'writing',  emoji: '✏️', title: 'Fill in the Blanks', titleHe: 'השלמת משפטים',   color: '#E17055', desc: 'Fill in the blanks using the word bank.',    descHe: 'מלאו את החסר ממאגר המילים.' },
@@ -242,15 +242,15 @@ function buildExercises(sectionId) {
 
     case 'sounds': {
       // Mix guided (choose) and typing (type) for each of the 4 sounds
-      const bySound = { le: [], er: [], ir: [], ar: [] };
+      const bySound = { le: [], er: [], ir: [] };
       DATA.sounds.forEach(s => bySound[s.sound].push(s));
       let exs = [];
-      for (const snd of ['le', 'er', 'ir', 'ar']) {
+      for (const snd of ['le', 'er', 'ir']) {
         const items = shuffle(bySound[snd]).slice(0, 4);
         items.forEach((item, i) => {
           if (i < 2) {
             exs.push({ type: 'sound-choose', ...item,
-              options: shuffle(['le', 'er', 'ir', 'ar']) });
+              options: shuffle(['le', 'er', 'ir']) });
           } else {
             exs.push({ type: 'sound-type', ...item });
           }
