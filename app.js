@@ -29,7 +29,7 @@ const state = {
   writingFilled: null,
   writingLocked: null,
   // progress saved per section
-  progress: JSON.parse(localStorage.getItem('abigail_progress') || '{}'),
+  progress: JSON.parse(localStorage.getItem(CONFIG.storageKey) || '{}'),
 };
 
 // ── UTILITIES ────────────────────────────────────────────────
@@ -83,7 +83,7 @@ function starsCount(pct) {
 function saveProgress(sectionId, starCount) {
   const prev = state.progress[sectionId] || 0;
   state.progress[sectionId] = Math.max(prev, starCount);
-  localStorage.setItem('abigail_progress', JSON.stringify(state.progress));
+  localStorage.setItem(CONFIG.storageKey, JSON.stringify(state.progress));
 }
 
 function storedStars(sectionId) {
@@ -92,7 +92,7 @@ function storedStars(sectionId) {
 }
 
 function daysUntilExam() {
-  const exam = new Date('2026-05-26');
+  const exam = new Date(CONFIG.examDate);
   const now  = new Date();
   const diff = Math.ceil((exam - now) / (1000 * 60 * 60 * 24));
   return Math.max(0, diff);
@@ -311,11 +311,11 @@ function renderHome() {
 
   return `
     <div class="app-header">
-      <h1>🌟 Abigail's English Prep!</h1>
-      <div class="subtitle">Jet 2 · Unit 3 · Animals Are Cool 🦁🐢🐧</div>
-      <div class="subtitle-he">הכנה למבדק — יחידה 3</div>
+      <h1>🌟 ${CONFIG.studentName}'s English Prep!</h1>
+      <div class="subtitle">${CONFIG.unit} ${CONFIG.unitEmojis}</div>
+      <div class="subtitle-he">${CONFIG.unitHe}</div>
     </div>
-    <div class="countdown">📅 ${days} ${dayWord} until the exam — May 26 &nbsp;|&nbsp; ${days} ימים לפני המבדק</div>
+    <div class="countdown">📅 ${days} ${dayWord} until the exam — ${CONFIG.examDateDisplay} &nbsp;|&nbsp; ${days} ימים לפני המבדק</div>
     <div class="section-grid">${cards}</div>`;
 }
 
@@ -703,9 +703,9 @@ function renderResult() {
   const sec   = SECTIONS.find(s => s.id === state.sectionId);
 
   const msgs = {
-    3: ['You are a star! 🌟', 'Incredible work, Abigail! 🎉', '!אביגיל, את מדהימה'],
-    2: ['Good job, Abigail! 💪', 'Keep practising! 📚', '!יפה מאוד, תמשיכי להתאמן'],
-    1: ['Keep going, Abigail! 💛', "You'll do better next time!", '!אל תוותרי, תנסי שוב'],
+    3: ['You are a star! 🌟', `Incredible work, ${CONFIG.studentName}! 🎉`, `!${CONFIG.studentNameHe}, את מדהימה`],
+    2: [`Good job, ${CONFIG.studentName}! 💪`, 'Keep practising! 📚', '!יפה מאוד, תמשיכי להתאמן'],
+    1: [`Keep going, ${CONFIG.studentName}! 💛`, "You'll do better next time!", '!אל תוותרי, תנסי שוב'],
   };
   const msgSet = msgs[count];
 
@@ -1032,6 +1032,7 @@ function nextExercise() {
 // that would accumulate if attached inside render/attach on #app.
 document.addEventListener('click', handleClick);
 document.addEventListener('keydown', handleKeydown);
+document.title = `${CONFIG.studentName}'s English Exam Prep`;
 
 // Wait for voices to load before first render (TTS quirk)
 if (window.speechSynthesis) {

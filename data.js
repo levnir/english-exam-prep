@@ -3,6 +3,18 @@
 // Jet 2, Unit 3: Animals Are Cool
 // ============================================================
 
+// ── CONFIG — change this for a new exam ──────────────────────
+const CONFIG = {
+  studentName:     "Abigail",
+  studentNameHe:   "אביגיל",
+  examDate:        "2026-05-26",      // ISO format YYYY-MM-DD
+  examDateDisplay: "May 26",          // shown in countdown bar
+  unit:            "Jet 2 · Unit 3 · Animals Are Cool",
+  unitEmojis:      "🦁🐢🐧",
+  unitHe:          "הכנה למבדק — יחידה 3",
+  storageKey:      "abigail_progress", // localStorage key
+};
+
 const DATA = {
 
   // ----------------------------------------------------------
