@@ -239,7 +239,7 @@ const DATA = {
     { sentence: "People drink water when they are thirsty.",     answer: true,  scene: "💧😓" },
     { sentence: "You listen with your eyes.",                    answer: false, scene: "👂" },
     { sentence: "A penguin is good at swimming.",                answer: true,  scene: "🐧🌊" },
-    { sentence: "The lion is behind the zebra.",                 answer: true,  scene: "🦁🦓" },
+    { sentence: "A lion lives in Africa.",                        answer: true,  scene: "🦁🌍" },
     { sentence: "You have a bath when you are clean.",           answer: false, scene: "🛁" },
     { sentence: "A kitten is a baby cat.",                       answer: true,  scene: "🐱" },
     { sentence: "People ride horses at the farm party.",         answer: true,  scene: "🐴🌾" },
