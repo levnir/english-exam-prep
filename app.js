@@ -202,7 +202,7 @@ function speak(text) {
   window.speechSynthesis.cancel();
   const utt = new SpeechSynthesisUtterance(text);
   utt.lang = 'en-US';
-  utt.rate = 0.85;
+  utt.rate = 0.75;
   // prefer a female English voice if available
   const voices = window.speechSynthesis.getVoices();
   const en = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'))
