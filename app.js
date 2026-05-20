@@ -487,17 +487,18 @@ function renderSoundChoose(ex) {
 }
 
 function renderSoundType(ex) {
+  const soundList = [...new Set(DATA.sounds.map(s => s.sound))].join(' / ');
   const highlighted = ex.blank.replace('__',
     `<span class="sound-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>`);
   return `
     <div class="ex-card">
       <span class="scene">${ex.emoji}</span>
       <div class="sound-display">${highlighted}</div>
-      <div class="hint-he">כתבו את הצליל החסר (le / er / ir / ar)</div>
+      <div class="hint-he">כתבו את הצליל החסר (${soundList})</div>
     </div>
     <div class="type-area">
       <input class="type-input" id="typeInput" type="text" maxlength="4"
-        placeholder="le / er / ir / ar"
+        placeholder="${soundList}"
         autocomplete="off" autocorrect="off" spellcheck="false"
         style="font-size:1.8rem; font-weight:900; max-width:180px;"
         ${state.answered ? 'disabled' : ''}
@@ -724,7 +725,7 @@ function getCorrectDisplay(ex) {
   if (ex.type === 'truefalse')   return ex.answer ? '✅ True / נכון' : '❌ False / לא נכון';
   if (ex.type === 'time-type')   return ex.phrase;
   if (ex.type === 'word-to-picture') return ex.correct;
-  if (ex.type === 'listen')      return ex.options[ex.answer];
+  if (ex.type === 'listen' || ex.type === 'reading-choice') return ex.options[ex.answer];
   return '';
 }
 
@@ -762,15 +763,8 @@ function renderResult() {
 
 // ── EVENT HANDLERS ────────────────────────────────────────────
 function attach() {
-  // Auto-focus typing inputs after each render
   const inp = document.getElementById('typeInput');
   if (inp) setTimeout(() => inp.focus(), 80);
-
-  // Auto-play first listen exercise
-  const ex = state.exercises[state.idx];
-  if (ex && ex.type === 'listen' && !state.listenPlayed) {
-    state.listenPlayed = false;
-  }
 }
 
 function handleClick(e) {
@@ -922,6 +916,19 @@ function handleCheckSound() {
   const typed = inp.value.trim().toLowerCase();
   const correct = ex.sound.toLowerCase();
   state.typedAnswer = inp.value;
+
+  if (state.revealed) {
+    if (typed === correct) {
+      state.answered = true;
+      state.lastResult = 'correct';
+      playSound('correct');
+      render();
+    } else {
+      playSound('wrong');
+      render();
+    }
+    return;
+  }
 
   if (typed === correct) {
     state.answered = true;
