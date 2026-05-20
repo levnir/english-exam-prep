@@ -233,7 +233,7 @@ const DATA = {
     { sentence: "The turtle has a funny face.",                   answer: true,  scene: "🐢😄" },
     { sentence: "Zebras are black and white.",                    answer: true,  scene: "🦓" },
     // yellow p02 — Bella's Day
-    { sentence: "Bella is thirsty at half past eleven.",          answer: true,  scene: "🐕💧" },
+    { sentence: "When you are thirsty, you eat dinner.",          answer: false, scene: "💧🍽️" },
     { sentence: "Bella has a bath because she is dirty.",         answer: true,  scene: "🐕🛁" },
     // yellow p03 — Peter Penguin
     { sentence: "Peter Penguin can fly.",                         answer: false, scene: "🐧" },
