@@ -475,7 +475,7 @@ const DATA = {
       title: "At the Safari Park",
       speech: "Jane says: Welcome to the Safari Park! Look at the zebra. Percy says: Wow! It is black and white and beautiful. Jane says: And there is a lion behind the zebra. Percy says: I am scared of lions! Jane says: Do not worry. The lion is cool.",
       questions: [
-        { q: "What color is the zebra?",               options: ["Brown and yellow", "Black and white", "Orange and black"],  answer: 1 },
+        { q: "What does Jane say about the lion?",       options: ["The lion is hungry", "The lion is cool", "The lion is scared"], answer: 1 },
         { q: "Where is the lion?",                     options: ["Near the water", "Behind the zebra", "In the tree"],        answer: 1 },
         { q: "How does Percy feel about lions?",       options: ["Happy", "Cool", "Scared"],                                  answer: 2 },
       ],
@@ -515,7 +515,7 @@ const DATA = {
       title: "Peter Penguin",
       speech: "Adam says: Can a penguin fly? Bob says: No! Penguins cannot fly. Adam says: Can Peter sing? Bob says: No. But Peter is great at swimming and tricks! Adam says: Peter is a great penguin!",
       questions: [
-        { q: "Can a penguin fly?",                     options: ["Yes, they can fly", "No, they cannot fly", "They can fly a little"], answer: 1 },
+        { q: "What two things can Peter NOT do?",       options: ["Swim and walk", "Fly and sing", "Run and jump"],            answer: 1 },
         { q: "What is Peter great at?",                options: ["Singing and dancing", "Flying and running", "Swimming and tricks"], answer: 2 },
         { q: "What does Adam say about Peter?",        options: ["Peter is a great penguin!", "Peter cannot fly or sing", "Peter is scared"], answer: 0 },
       ],
@@ -523,11 +523,11 @@ const DATA = {
     {
       id: "animals_listen",
       title: "Animals Are Cool!",
-      speech: "Dana says: Tell me about elephants. Tom says: Elephants have big ears and a long nose. Dana says: And turtles? Tom says: Turtles are slow. They can swim and walk. Dana says: And zebras are black and white!",
+      speech: "Dana says: Tell me about elephants. Tom says: Elephants are great! They have a long nose and they play in the water. Dana says: And turtles? Tom says: Turtles are very slow. But they can swim! Dana says: Which animal do you like more? Tom says: I like turtles more!",
       questions: [
-        { q: "What do elephants have?",                options: ["Small ears and a short nose", "Big ears and a long nose", "A funny face"], answer: 1 },
-        { q: "What can turtles do?",                   options: ["Fly and sing", "Run and jump", "Swim and walk"],            answer: 2 },
-        { q: "What color are zebras?",                 options: ["Black and white", "Brown and yellow", "Orange and black"],  answer: 0 },
+        { q: "What does Tom say elephants do in the water?", options: ["Sleep", "Play", "Swim fast"],                         answer: 1 },
+        { q: "What does Tom say about turtles?",       options: ["They are fast and can fly", "They are very slow but can swim", "They are big and cool"], answer: 1 },
+        { q: "Which animal does Tom like more?",       options: ["Elephants", "Lions", "Turtles"],                            answer: 2 },
       ],
     },
     {
@@ -537,7 +537,7 @@ const DATA = {
       questions: [
         { q: "What time does Lisa wake up?",           options: ["Six o'clock", "Half past six", "Seven o'clock"],           answer: 1 },
         { q: "What time does Lisa eat dinner?",        options: ["Six o'clock", "Half past five", "Half past six"],           answer: 0 },
-        { q: "What time does Lisa go to sleep?",       options: ["Nine o'clock", "Half past eight", "Half past nine"],        answer: 2 },
+        { q: "What does Amy say about Lisa's bedtime?", options: ["That is early!", "Good for you!", "That is late!"],        answer: 2 },
       ],
     },
     {
