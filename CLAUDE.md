@@ -279,6 +279,7 @@ The app is **complete and live**. All 8 sections are working. The most recently 
 - **Writing expanded**: 10 exercises (was 5); 3 chosen randomly per session
 - Code review: 4 bugs fixed (getCorrectDisplay reading-choice, sound-type hint ar, dead code in attach, handleCheckSound revealed guard)
 - **Vocabulary reduced**: 22 → 10 questions per session (3 word-to-pic + 4 sentence-type + 3 qa-match)
+- Vocabulary section instructions updated to cover all 3 question types (English + Hebrew)
 - **Typed input UX**: wrong answer text preserved in input after failed attempt; text is selected on re-focus so student can edit or retype
 - **Listen button toggles**: press to start, press again to stop, resets automatically when speech ends
 - Table emoji fixed in sounds section (🪑 → 🍽️)
