@@ -447,7 +447,7 @@ function renderSentenceType(ex) {
       <input class="type-input" id="typeInput" type="text" placeholder="Type the word..."
         autocomplete="off" autocorrect="off" spellcheck="false"
         ${state.answered ? 'disabled' : ''}
-        value="${state.answered ? (state.typedAnswer || '') : ''}">
+        value="${state.typedAnswer || ''}">
 
       <button class="btn-check" data-action="check-type" ${state.answered ? 'disabled' : ''}>
         ✔ Check
@@ -502,7 +502,7 @@ function renderSoundType(ex) {
         autocomplete="off" autocorrect="off" spellcheck="false"
         style="font-size:1.8rem; font-weight:900; max-width:180px;"
         ${state.answered ? 'disabled' : ''}
-        value="${state.answered ? (state.typedAnswer || '') : ''}">
+        value="${state.typedAnswer || ''}">
 
       <button class="btn-check" data-action="check-sound" ${state.answered ? 'disabled' : ''}>
         ✔ Check
@@ -557,7 +557,7 @@ function renderReadingType(ex) {
         placeholder="Type your answer..."
         autocomplete="off" autocorrect="off" spellcheck="false"
         ${state.answered ? 'disabled' : ''}
-        value="${state.answered ? (state.typedAnswer || '') : ''}">
+        value="${state.typedAnswer || ''}">
 
       <button class="btn-check" data-action="check-type" ${state.answered ? 'disabled' : ''}>
         ✔ Check
@@ -630,7 +630,7 @@ function renderTimeType(ex) {
         placeholder="It's ..."
         autocomplete="off" autocorrect="off" spellcheck="false"
         ${state.answered ? 'disabled' : ''}
-        value="${state.answered ? (state.typedAnswer || '') : ''}">
+        value="${state.typedAnswer || ''}">
 
       <button class="btn-check" data-action="check-time" ${state.answered ? 'disabled' : ''}>
         ✔ Check
@@ -649,7 +649,7 @@ function renderSpelling(ex) {
         placeholder="Write the word in English..."
         autocomplete="off" autocorrect="off" spellcheck="false"
         ${state.answered ? 'disabled' : ''}
-        value="${state.answered ? (state.typedAnswer || '') : ''}">
+        value="${state.typedAnswer || ''}">
       <button class="btn-check" data-action="check-type" ${state.answered ? 'disabled' : ''}>
         ✔ Check
       </button>
