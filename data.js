@@ -190,7 +190,7 @@ const DATA = {
   sounds: [
     // le — end of word
     { word: "turtle",  blank: "turt__",  sound: "le", emoji: "🐢" },
-    { word: "table",   blank: "tab__",   sound: "le", emoji: "🪑" },
+    { word: "table",   blank: "tab__",   sound: "le", emoji: "🍽️" },
     { word: "apple",   blank: "app__",   sound: "le", emoji: "🍎" },
     { word: "people",  blank: "peop__",  sound: "le", emoji: "👫" },
     { word: "smile",   blank: "smi__",   sound: "le", emoji: "😊" },
