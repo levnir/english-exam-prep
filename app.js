@@ -846,12 +846,6 @@ function startSection(id) {
   state.writingLocked = null;
   state.screen = 'exercise';
 
-  // Auto-speak first listening exercise
-  const first = state.exercises[0];
-  if (first && first.type === 'listen') {
-    setTimeout(() => speak(first.speech), 300);
-  }
-
   render();
 }
 
