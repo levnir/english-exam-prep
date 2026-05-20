@@ -11,6 +11,7 @@ const SECTIONS = [
   { id: 'reading',  emoji: '📖', title: 'Reading',           titleHe: 'קריאה והבנה',   color: '#6C5CE7', desc: 'Read the passage and answer questions.',     descHe: 'קראו את הקטע וענו על השאלות.' },
   { id: 'writing',  emoji: '✏️', title: 'Fill in the Blanks', titleHe: 'השלמת משפטים',   color: '#E17055', desc: 'Fill in the blanks using the word bank.',    descHe: 'מלאו את החסר ממאגר המילים.' },
   { id: 'time',     emoji: '🕐', title: 'What Time Is It?',  titleHe: 'מה השעה?',       color: '#FDCB6E', desc: 'Look at the clock and write the time.',      descHe: 'הסתכלו על השעון וכתבו את השעה.' },
+  { id: 'spelling', emoji: '🔡', title: 'Spelling',          titleHe: 'כתיב',           color: '#A29BFE', desc: 'Look at the picture and write the word.',    descHe: 'הסתכלו בתמונה וכתבו את המילה באנגלית.' },
 ];
 
 // ── STATE ────────────────────────────────────────────────────
@@ -283,6 +284,11 @@ function buildExercises(sectionId) {
         type: 'time-type', ...item
       }));
 
+    case 'spelling':
+      return shuffle(DATA.vocabulary).slice(0, 10).map(item => ({
+        type: 'spelling', ...item, answer: item.word
+      }));
+
     default: return [];
   }
 }
@@ -355,6 +361,7 @@ function renderExercise() {
     case 'reading-type': body = renderReadingType(ex); break;
     case 'writing':      body = renderWriting(ex);     break;
     case 'time-type':    body = renderTimeType(ex);    break;
+    case 'spelling':     body = renderSpelling(ex);    break;
     default: body = '<p>Loading...</p>';
   }
 
@@ -621,6 +628,24 @@ function renderTimeType(ex) {
     </div>`;
 }
 
+function renderSpelling(ex) {
+  return `
+    <div class="ex-card">
+      <span class="scene">${ex.emoji}</span>
+      <div class="hint-he">${ex.hebrew}</div>
+    </div>
+    <div class="type-area">
+      <input class="type-input" id="typeInput" type="text"
+        placeholder="Write the word in English..."
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        ${state.answered ? 'disabled' : ''}
+        value="${state.answered ? (state.typedAnswer || '') : ''}">
+      <button class="btn-check" data-action="check-type" ${state.answered ? 'disabled' : ''}>
+        ✔ Check
+      </button>
+    </div>`;
+}
+
 // ── FEEDBACK ─────────────────────────────────────────────────
 function renderFeedback() {
   const ex = state.exercises[state.idx];
@@ -684,7 +709,7 @@ function renderFeedback() {
 }
 
 function getCorrectDisplay(ex) {
-  if (ex.type === 'sentence-type' || ex.type === 'reading-type') return ex.answer;
+  if (ex.type === 'sentence-type' || ex.type === 'reading-type' || ex.type === 'spelling') return ex.answer;
   if (ex.type === 'sound-type' || ex.type === 'sound-choose') return `${ex.blank.replace('__', `[${ex.sound}]`)}  →  ${ex.word}`;
   if (ex.type === 'qa-match')    return ex.correct;
   if (ex.type === 'truefalse')   return ex.answer ? '✅ True / נכון' : '❌ False / לא נכון';
@@ -789,7 +814,7 @@ function handleKeydown(e) {
 
   const ex = state.exercises[state.idx];
   if (!ex) return;
-  if (ex.type === 'sentence-type' || ex.type === 'reading-type') handleCheckType();
+  if (ex.type === 'sentence-type' || ex.type === 'reading-type' || ex.type === 'spelling') handleCheckType();
   else if (ex.type === 'sound-type') handleCheckSound();
   else if (ex.type === 'time-type') handleCheckTime();
 }
