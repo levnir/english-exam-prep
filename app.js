@@ -6,12 +6,12 @@
 const SECTIONS = [
   { id: 'listen',   emoji: '👂', title: 'Listen & Mark',    titleHe: 'האזנה',          color: '#E63946', desc: 'Listen to the conversation and answer.',   descHe: 'האזינו לשיחה וענו על השאלה.' },
   { id: 'vocab',    emoji: '📚', title: 'Vocabulary',        titleHe: 'אוצר מילים',     color: '#4ECDC4', desc: 'Match words to pictures and fill sentences.', descHe: 'התאימו מילים לתמונות והשלימו משפטים.' },
-  { id: 'sounds',   emoji: '🔤', title: 'Sounds',            titleHe: 'צלילים',         color: '#45B7D1', desc: 'Complete the word with le, er, or ir.',      descHe: 'השלימו את המילה עם le, er, ir.' },
+  { id: 'sounds',   emoji: '🔡', title: 'Sounds',            titleHe: 'צלילים',         color: '#45B7D1', desc: 'Complete the word with le, er, or ir.',      descHe: 'השלימו את המילה עם le, er, ir.' },
   { id: 'truefalse',emoji: '✅', title: 'True or False',     titleHe: 'נכון / לא נכון', color: '#2D6A4F', desc: 'Is the sentence true or false?',             descHe: 'האם המשפט נכון או לא נכון?' },
   { id: 'reading',  emoji: '📖', title: 'Reading',           titleHe: 'קריאה והבנה',   color: '#6C5CE7', desc: 'Read the passage and answer questions.',     descHe: 'קראו את הקטע וענו על השאלות.' },
-  { id: 'writing',  emoji: '✏️', title: 'Fill in the Blanks', titleHe: 'השלמת משפטים',   color: '#E17055', desc: 'Fill in the blanks using the word bank.',    descHe: 'מלאו את החסר ממאגר המילים.' },
+  { id: 'writing',  emoji: '🧩', title: 'Fill in the Blanks', titleHe: 'השלמת משפטים',   color: '#E17055', desc: 'Fill in the blanks using the word bank.',    descHe: 'מלאו את החסר ממאגר המילים.' },
   { id: 'time',     emoji: '🕐', title: 'What Time Is It?',  titleHe: 'מה השעה?',       color: '#FDCB6E', desc: 'Look at the clock and write the time.',      descHe: 'הסתכלו על השעון וכתבו את השעה.' },
-  { id: 'spelling', emoji: '🔡', title: 'Spelling',          titleHe: 'כתיב',           color: '#A29BFE', desc: 'Look at the picture and write the word.',    descHe: 'הסתכלו בתמונה וכתבו את המילה באנגלית.' },
+  { id: 'spelling', emoji: '✏️', title: 'Spelling',          titleHe: 'כתיב',           color: '#A29BFE', desc: 'Look at the picture and write the word.',    descHe: 'הסתכלו בתמונה וכתבו את המילה באנגלית.' },
 ];
 
 // ── STATE ────────────────────────────────────────────────────
