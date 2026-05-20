@@ -209,6 +209,7 @@ function speak(text) {
   const en = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'))
           || voices.find(v => v.lang.startsWith('en-'));
   if (en) utt.voice = en;
+  utt.onend = () => { if (state.screen === 'exercise') render(); };
   window.speechSynthesis.speak(utt);
 }
 
@@ -414,7 +415,9 @@ function renderListen(ex) {
       <div class="hint-he">שאלה • Question</div>
     </div>
     <button class="listen-btn" data-action="speak" data-text="${encodeURIComponent(ex.speech)}">
-      <span class="icon">🔊</span> Listen / האזינו
+      ${window.speechSynthesis && window.speechSynthesis.speaking
+        ? '<span class="icon">⏹</span> Stop / עצור'
+        : '<span class="icon">🔊</span> Listen / האזינו'}
     </button>
     <div class="options-grid single-col">${optBtns}</div>`;
 }
@@ -778,8 +781,13 @@ function handleClick(e) {
     state.screen = 'home';
     render();
   } else if (action === 'speak') {
-    speak(decodeURIComponent(el.dataset.text));
-    state.listenPlayed = true;
+    if (window.speechSynthesis && window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    } else {
+      speak(decodeURIComponent(el.dataset.text));
+      state.listenPlayed = true;
+    }
+    render();
   } else if (action === 'choice') {
     if (state.answered) return;
     handleChoice(parseInt(el.dataset.idx), el.dataset.val);
