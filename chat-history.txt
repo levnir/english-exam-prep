@@ -1285,3 +1285,135 @@ please update the chat history file too
 --------------------------------------------------
 Appended sessions 2026-05-19 and 2026-05-20 to chat-history.txt (messages 98–160).
 
+
+[161] YOU  (2026-05-20)
+--------------------------------------------------
+In 'Listen & Mark' section there are 5 questions. Are they always the same 5 or they are chosen randomly from a larger bank of questions?
+
+[162] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Explained: at the time, all 5 listening exercises were drawn every session (no randomness). Proposed expanding the bank for variety.
+
+[163] YOU  (2026-05-20)
+--------------------------------------------------
+Yes, please expand the listening bank so questions are drawn randomly from a larger set.
+
+[164] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Proposed 8 conversations × 3 questions, 1 conversation per session. Asked for approval.
+
+[165] YOU  (2026-05-20)
+--------------------------------------------------
+I would prefer only 3 random questions per session, bank of 15 exercises. Is this feasible?
+
+[166] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Proposed alternative: each session = 1 full conversation with 5 questions (multi-question per conversation). Described plan.
+
+[167] YOU  (2026-05-20)
+--------------------------------------------------
+I would prefer 5 questions per session. Give me a plan summary.
+
+[168] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Plan: 8 conversations × 5 speaker lines × 5 questions each. 1 random conversation per session, all 5 questions shown.
+
+[169] YOU  (2026-05-20)
+--------------------------------------------------
+yes, go ahead
+
+[170] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Implemented: DATA.listening redesigned as 8 conversations (speech array + questions array). buildExercises picks 1 random conversation and maps all its questions. Committed and pushed.
+
+[171] YOU  (2026-05-20)
+--------------------------------------------------
+When the user chooses the listen section, the conversation starts immediately. I would prefer it does not start immediately — only when the user clicks Listen.
+
+[172] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Confirmed: easy fix — remove speak() call from startSection and nextExercise. Button text changed to "Listen / האזינו". Awaiting approval.
+
+[173] YOU  (2026-05-20)
+--------------------------------------------------
+yes, go ahead
+
+[174] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Removed auto-play from startSection and nextExercise. Button renamed "Listen / האזינו". Committed and pushed.
+
+[175] YOU  (2026-05-20)
+--------------------------------------------------
+The new conversations include material outside the green p01-p16 + yellow p01-p03 scope. This needs to be adjusted.
+
+[176] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Reviewed all 8 conversations. Three were out of scope: party_listen, kittens_listen, ari_listen. Proposed replacements: animals_listen (green p01–p07), routine_listen (green p08–p13), languages_listen (green p14–p16). User approved.
+
+[177] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Replaced the three out-of-scope conversations in data.js. Committed and pushed.
+
+[178] YOU  (2026-05-20)
+--------------------------------------------------
+How many sentences does each conversation have? They seem too long for a 4th grader.
+
+[179] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Explained: conversations had ~8 lines. Proposed shortening to 5 speaker lines, 3 questions each. Described a plan for all 8 conversations.
+
+[180] YOU  (2026-05-20)
+--------------------------------------------------
+Looks great, go ahead (5 sentences, 3 questions per conversation)
+
+[181] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Rewrote all 8 conversations to 5 speaker lines + 3 questions. Committed and pushed.
+
+[182] YOU  (2026-05-20)
+--------------------------------------------------
+Some questions have trivial answers (answerable from common knowledge, not from listening). Can you improve them?
+
+[183] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Identified 4 conversations with trivial questions: safari (zebra color), bella (what Bella does at 17:30), penguin (what Peter can't do), animals (what Tom likes). Proposed non-trivial replacements. User approved.
+
+[184] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Replaced trivial questions in safari_listen, bella_listen, penguin_listen, animals_listen. Committed and pushed.
+
+[185] YOU  (2026-05-20)
+--------------------------------------------------
+Looks good, well done.
+
+[186] YOU  (2026-05-20)
+--------------------------------------------------
+Please take a look at all different sections and tell me if every section chooses questions randomly.
+
+[187] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Reviewed all 8 sections. listen, truefalse, reading, time, spelling all draw randomly. vocab draws randomly from sub-banks. sounds draws randomly from each sound group. writing always showed all 5 (no randomness). Proposed expanding reading to 8 passages and writing to 10 exercises draw 3.
+
+[188] YOU  (2026-05-20)
+--------------------------------------------------
+I wish to make changes: Reading → 8 passages. Fill in the Blanks → bank of 10, draw 3 randomly.
+
+[189] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Confirmed plan. Added 5 new passages and 5 new writing exercises to data.js. Changed writing to slice(0,3). Committed and pushed.
+
+[190] YOU  (2026-05-20)
+--------------------------------------------------
+The reading passages are too long (~10 sentences). Shorten them to 5 sentences and 4 questions.
+
+[191] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Noted: 4 questions with only 5 sentences may be tight. Presented Option A (5 sentences, 3 questions) and Option B (7 sentences, 4 questions).
+
+[192] YOU  (2026-05-20)
+--------------------------------------------------
+You are right — I meant 5 sentences. Let's go for Option A: 5 sentences and 3 questions.
+
+[193] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Rewrote all 8 reading passages to 5 sentences + 3 questions each. Committed and pushed. Updated CLAUDE.md and chat-history.txt.

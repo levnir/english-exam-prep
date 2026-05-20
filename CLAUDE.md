@@ -70,12 +70,12 @@ const state = {
 
 | id | Title | Exercises | Exercise types |
 |----|-------|-----------|----------------|
-| `listen` | Listen & Mark | 5 | `listen` (TTS + click) |
+| `listen` | Listen & Mark | 3 questions from 1 random conversation (bank of 8) | `listen` (TTS + click) |
 | `vocab` | Vocabulary | ~22 (8 word-to-pic + 8 sentence-type + 6 qa-match, shuffled) | `word-to-picture`, `sentence-type`, `qa-match` |
 | `sounds` | Sounds 🔡 | 12 (4 per sound le/er/ir; 2 choose + 2 type each) | `sound-choose`, `sound-type` |
 | `truefalse` | True or False | 12 of 20 | `truefalse` |
-| `reading` | Reading | 5 questions from 1 random passage | `reading-choice`, `reading-type` |
-| `writing` | Fill in the Blanks 🧩 | 5 | `writing` |
+| `reading` | Reading | 3 questions from 1 random passage (bank of 8) | `reading-choice`, `reading-type` |
+| `writing` | Fill in the Blanks 🧩 | 3 of 10 | `writing` |
 | `time` | What Time Is It? | 5 of 24 | `time-type` |
 | `spelling` | Spelling ✏️ | 10 of 34 | `spelling` |
 
@@ -134,12 +134,21 @@ DATA.sentenceCompletion[]— 24 items: sentence (with ___), answer, emoji, hint 
 DATA.qaMatching[]        — 10 Q&A pairs: question, correct answer, 3 wrong answers
 DATA.sounds[]            — 16 items (le×5, er×6, ir×5): word, blank, sound, emoji — NO ar
 DATA.trueFalse[]         — 20 items: sentence, answer (bool), scene emoji
-DATA.passages[]          — 3 passages: safari, bella, peter_penguin
-                           Each has .text and .questions[] ({q, type, options?, answer})
-DATA.writing[]           — 5 fill-in exercises: safari_day, bella_day, peter_penguin,
-                           animal_riddles, good_at
+DATA.passages[]          — 8 passages, each 5 sentences + 3 questions:
+                           safari, bella, peter, safari_animals, toms_day,
+                           betty_bird, my_favourite, lion_turtle
+                           Each has .text (5 sentences) and .questions[] (3 items, type "choice" or "type")
+                           1 passage picked randomly per session; ALL 3 questions shown
+DATA.writing[]           — 10 fill-in exercises: safari_day, bella_day, peter_penguin,
+                           animal_riddles, good_at, toms_day, animal_facts,
+                           betty_bird, feelings, the_lion
                            Each has .segments[] ({text} or {blank:true, answer}) and .wordBank[]
-DATA.listening[]         — 5 TTS exercises: speech string, question, options[], answer index
+                           3 picked randomly per session
+DATA.listening[]         — 8 conversations; each has .speech (5 speaker lines) and .questions[] (3 items)
+                           Conversations: safari_listen, time_listen, tricks_listen, bella_listen,
+                           penguin_listen, animals_listen, routine_listen, languages_listen
+                           1 conversation picked randomly per session; ALL 3 questions shown
+                           Auto-play disabled — user must click "Listen" button to start TTS
 DATA.clockTimes[]        — 24 times: h (1–12), m (0 or 30), phrase ("It's X o'clock" / "It's half past X")
 ```
 
@@ -191,9 +200,11 @@ Key classes:
 
 **TTS** (`speak(text)` in app.js, Web Speech API):
 - Used for listening section
-- English voice, rate 0.85
+- English voice, rate 0.75 (slowed from 0.85 for clarity)
 - Prefers female voice if available
-- All listening exercises use real names (not "A says / B says"): Dana/Noa, Mom/Lior, Teacher/Maya/Dan, Adam/Bob, Jane/Percy/Liz
+- All listening exercises use real names (not "A says / B says")
+- Does NOT auto-play; user clicks the "Listen" button to hear the conversation
+- Replay button is always visible (not hidden after first play)
 
 ---
 
@@ -248,12 +259,18 @@ The app is **complete and live**. All 8 sections are working. The most recently 
   adding/removing a sound in `data.js` now flows through automatically with no `app.js` changes
 - True/False: replaced context-dependent "Bella is thirsty at half past eleven" with
   "When you are thirsty, you eat dinner." (false) — tests vocabulary without passage memorization
-- TTS name "Noa" → "Lisa" in bella_listen exercise (clearer pronunciation)
-- TTS rate slowed from 0.85 to 0.75 for clearer listening exercises
+- TTS rate slowed from 0.85 → 0.75; name "Noa" → "Lisa" in bella_listen (clearer pronunciation)
 - **New Spelling section (8th)** — shows emoji + Hebrew hint, user types English word from memory;
   10 random words from `DATA.vocabulary` per session; same retry mechanic as other type exercises
-- Section icons updated: Sounds=🔡, Fill in the Blanks=🧩, Spelling=✏️
-- Clock section reduced from 10 to 5 questions per session
+- Section icons: Sounds=🔡, Fill in the Blanks=🧩, Spelling=✏️
+- Clock section: 5 random questions per session (was 10)
+- **Listening redesigned**: bank of 8 conversations (5 speaker lines each, 3 questions each);
+  1 random conversation per session with ALL 3 questions shown; auto-play removed;
+  3 conversations replaced to stay within green p01–p16 scope (animals_listen, routine_listen, languages_listen)
+  Questions designed to require actual listening — no trivially common-knowledge answers
+- **Reading expanded**: 8 passages (was 3), each 5 sentences + 3 questions;
+  1 passage chosen randomly per session
+- **Writing expanded**: 10 exercises (was 5); 3 chosen randomly per session
 
 **No outstanding bugs or pending tasks.** Waiting for next user review feedback.
 
