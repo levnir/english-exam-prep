@@ -465,49 +465,106 @@ const DATA = {
   ],
 
   // ----------------------------------------------------------
-  // LISTENING — TTS conversations
+  // LISTENING — TTS conversations (8 conversations, 5 questions each)
+  // One conversation chosen randomly per session.
   // Sources: yellow p01–p03, green p07–p16
   // ----------------------------------------------------------
   listening: [
     {
       id: "safari_listen",
       title: "At the Safari Park",
-      speech: "Jane says: Good morning children! Welcome to the Safari Park. Look at the zebra! Percy says: Wow! It is beautiful! Jane says: And look! There is a lion behind the zebra. Percy says: I am scared of lions! Jane says: Do not worry. The lion is cool.",
-      question: "Which animals do they see?",
-      options: ["🐘 elephant and 🦛 hippo", "🦓 zebra and 🦁 lion", "🐢 turtle and 🐦 bird"],
-      answer: 1,
+      speech: "Jane says: Good morning! Welcome to the Safari Park. Look at the zebra! Percy says: Wow! It is black and white and beautiful! Jane says: And look behind the zebra. There is a lion! Liz says: I am scared of lions! Jane says: Do not worry, the lion is cool. Percy says: Look! There are two elephants in the water! Jane says: Yes! And do you see the hippos? Liz says: The hippos are walking in the water! Jane says: That is right. Hippos walk in the water. They cannot swim fast.",
+      questions: [
+        { q: "What color is the zebra?",               options: ["Black and white", "Brown and yellow", "Orange and black"],  answer: 0 },
+        { q: "Where is the lion?",                     options: ["In the water", "Behind the zebra", "Near the hippos"],      answer: 1 },
+        { q: "Who is scared of lions?",                options: ["Jane", "Percy", "Liz"],                                     answer: 2 },
+        { q: "What are the elephants doing?",          options: ["Sleeping by a tree", "Playing in the water", "Eating cake"], answer: 1 },
+        { q: "What do hippos do in the water?",        options: ["Swim fast", "Walk", "Sing and dance"],                      answer: 1 },
+      ],
     },
     {
       id: "time_listen",
       title: "What Time Is It?",
-      speech: "Mom says: Tom, what time is it? Tom says: It is half past seven. Mom says: Are you hungry? Tom says: Yes! I want to eat dinner. Mom says: OK, let us eat.",
-      question: "What time is it?",
-      options: ["It's seven o'clock", "It's half past six", "It's half past seven"],
-      answer: 2,
+      speech: "Mom says: Tom, wake up! Tom says: What time is it? Mom says: It is seven o'clock! Tom says: I am hungry. Mom says: Eat breakfast first. Tom says: What time do we eat dinner? Mom says: We eat dinner at half past six. Tom says: And what time do I go to sleep? Mom says: You go to sleep at nine o'clock. Tom says: OK Mom!",
+      questions: [
+        { q: "What time does Tom wake up?",            options: ["Six o'clock", "Half past six", "Seven o'clock"],            answer: 2 },
+        { q: "How does Tom feel in the morning?",      options: ["Tired", "Hungry", "Scared"],                                answer: 1 },
+        { q: "What does Mom tell Tom to eat first?",   options: ["Dinner", "Cake", "Breakfast"],                              answer: 2 },
+        { q: "What time do they eat dinner?",          options: ["Half past five", "Half past six", "Seven o'clock"],         answer: 1 },
+        { q: "What time does Tom go to sleep?",        options: ["Eight o'clock", "Half past eight", "Nine o'clock"],         answer: 2 },
+      ],
     },
     {
       id: "tricks_listen",
       title: "What Are You Good At?",
-      speech: "Teacher says: What are you good at, Maya? Maya says: I am good at tricks. Look! Teacher says: Wow, that is great! And what about you, Dan? Dan says: I am good at Arabic. Teacher says: Very good!",
-      question: "What is Maya good at?",
-      options: ["Arabic", "Tricks", "Swimming"],
-      answer: 1,
+      speech: "Teacher says: Good morning class! Today, tell me what you are good at. Maya says: I am good at tricks! Look at me! Teacher says: Wow, that is great Maya! And you, Dan? Dan says: I am good at Arabic. I can read and write in Arabic. Teacher says: Very good Dan! And what about swimming? Dan says: I cannot swim. I am scared of water. Teacher says: That is OK. You can try!",
+      questions: [
+        { q: "What is Maya good at?",                  options: ["Swimming", "Arabic", "Tricks"],                             answer: 2 },
+        { q: "What is Dan good at?",                   options: ["Tricks", "Arabic", "Swimming"],                             answer: 1 },
+        { q: "What can Dan do in Arabic?",             options: ["Sing and dance", "Read and write", "Swim and run"],         answer: 1 },
+        { q: "How does Dan feel about water?",         options: ["Happy", "Tired", "Scared"],                                 answer: 2 },
+        { q: "What does the teacher say Dan can do?",  options: ["Try", "Fly", "Swim"],                                       answer: 0 },
+      ],
     },
     {
       id: "bella_listen",
       title: "How Is Bella?",
-      speech: "Dana says: How is your dog Bella today? Lisa says: She is tired and dirty. Dana says: Oh! Give her a bath. Lisa says: Good idea. She will be happy after a bath.",
-      question: "How is Bella?",
-      options: ["Hungry and thirsty", "Tired and dirty", "Scared and cool"],
-      answer: 1,
+      speech: "Dana says: How is your dog Bella today? Lisa says: She is tired and dirty! Dana says: Oh no! What happened? Lisa says: Bella played in the park all day. She walked in the water and ate in the garden. Dana says: Give her a bath! Lisa says: Good idea. She will be happy after a bath. Dana says: And let her sleep. She is tired! Lisa says: Yes, Bella needs a long sleep.",
+      questions: [
+        { q: "How is Bella today?",                    options: ["Hungry and thirsty", "Tired and dirty", "Scared and cool"], answer: 1 },
+        { q: "Where did Bella play?",                  options: ["At the beach", "In the park", "At the farm"],              answer: 1 },
+        { q: "What did Bella do in the water?",        options: ["Swim fast", "Walk", "Do tricks"],                           answer: 1 },
+        { q: "What does Dana say Lisa should do?",     options: ["Give Bella a bath", "Take Bella to the vet", "Feed Bella"], answer: 0 },
+        { q: "What does Bella need after her bath?",   options: ["Food and water", "A long sleep", "More tricks"],            answer: 1 },
+      ],
     },
     {
       id: "penguin_listen",
       title: "Peter Penguin",
-      speech: "Teacher says: Look at the penguin! What can it do? Sam says: It can swim. It is good at tricks. Teacher says: Can it fly? Sam says: No! Penguins cannot fly. Teacher says: You are great, Sam! You know a lot about penguins.",
-      question: "What can the penguin do?",
-      options: ["Fly and sing", "Swim and do tricks", "Walk and dance"],
-      answer: 1,
+      speech: "Adam says: Look at that penguin! Bob says: It is Peter Penguin! Adam says: Can Peter fly? Bob says: No! Penguins cannot fly. Adam says: Can Peter sing? Bob says: No, penguins cannot sing. But Peter is great at swimming! Adam says: And tricks! Bob says: Yes! Peter can do great tricks. The people love watching him. Adam says: Peter is a great penguin! Bob says: You are great, Peter!",
+      questions: [
+        { q: "What is the penguin's name?",            options: ["Adam", "Bob", "Peter"],                                     answer: 2 },
+        { q: "Can Peter fly?",                         options: ["Yes, he can fly", "No, he cannot fly", "He can fly a little"], answer: 1 },
+        { q: "Can Peter sing?",                        options: ["Yes, in English", "Yes, in Arabic", "No, he cannot sing"],  answer: 2 },
+        { q: "What is Peter great at?",                options: ["Flying and singing", "Swimming and tricks", "Running and jumping"], answer: 1 },
+        { q: "What do the people love doing?",         options: ["Feeding Peter", "Watching Peter", "Teaching Peter"],        answer: 1 },
+      ],
+    },
+    {
+      id: "party_listen",
+      title: "Come to My Party!",
+      speech: "Sara says: Amy, come to my birthday party! Amy says: How fun! When is it? Sara says: It is on Friday at five o'clock. Amy says: Where is it? Sara says: It is at the beach! Amy says: The beach! What can I bring? Sara says: Bring a swimsuit and a hat. Amy says: Can I bring my sister? Sara says: Yes! Come with your sister. We will swim in the sea and eat cake. Amy says: We will be there! See you at the party!",
+      questions: [
+        { q: "What kind of party is it?",              options: ["Sports party", "Birthday party", "Pajama party"],           answer: 1 },
+        { q: "When is the party?",                     options: ["Thursday at five", "Friday at five", "Friday at seven"],    answer: 1 },
+        { q: "Where is the party?",                    options: ["At the farm", "At the park", "At the beach"],               answer: 2 },
+        { q: "What should Amy bring?",                 options: ["Long pants and shoes", "A ball and a game", "A swimsuit and a hat"], answer: 2 },
+        { q: "Who can Amy bring with her?",            options: ["Her brother", "Her sister", "Her teacher"],                 answer: 1 },
+      ],
+    },
+    {
+      id: "kittens_listen",
+      title: "Three Little Kittens",
+      speech: "Adam says: Tom, look at these kittens! Tom says: Oh! They are so small. Where is their mother? Adam says: I do not know. I found three kittens behind a tree in the park. Tom says: Oh no! We must help them. Adam says: Let us take them to the animal hospital. Tom says: Good idea! Doctor Levy is there. She is a great doctor. Adam says: Look! A black cat at the hospital is cleaning the kittens. Tom says: Doctor Levy says she is the mother!",
+      questions: [
+        { q: "How many kittens did Adam find?",        options: ["Two", "Three", "Four"],                                     answer: 1 },
+        { q: "Where did Adam find the kittens?",       options: ["Behind a tree in the park", "Near the water", "At the farm"], answer: 0 },
+        { q: "Where do they take the kittens?",        options: ["To the farm", "To the beach", "To the animal hospital"],   answer: 2 },
+        { q: "Who is the doctor at the hospital?",     options: ["Doctor Adam", "Doctor Levy", "Doctor Tom"],                 answer: 1 },
+        { q: "Who is the mother of the kittens?",      options: ["A dog at the hospital", "A black cat at the hospital", "Doctor Levy"], answer: 1 },
+      ],
+    },
+    {
+      id: "ari_listen",
+      title: "Ari's Day",
+      speech: "Amy says: Tell me about Ari the lion. Tom says: Ari lives in Africa. He wakes up at six o'clock and drinks water. Amy says: What does he do next? Tom says: At half past eight, he sees an old tree. He sits and rests. Amy says: And in the afternoon? Tom says: At five o'clock, Ari sees a zebra. He wants to eat it! Amy says: Is Ari fast? Tom says: Yes! Lions are big and fast. Amy says: And at night? Tom says: Ari is tired. He sleeps near the tree.",
+      questions: [
+        { q: "Where does Ari live?",                   options: ["At the beach", "In Africa", "On a farm"],                  answer: 1 },
+        { q: "What does Ari do first in the morning?", options: ["Eats dinner", "Drinks water", "Sleeps by the tree"],       answer: 1 },
+        { q: "What time does Ari wake up?",            options: ["Half past six", "Seven o'clock", "Six o'clock"],           answer: 2 },
+        { q: "What does Ari want to eat?",             options: ["A turtle", "A zebra", "A bird"],                           answer: 1 },
+        { q: "Where does Ari sleep at night?",         options: ["In the water", "Near the tree", "At the hospital"],        answer: 1 },
+      ],
     },
   ],
 

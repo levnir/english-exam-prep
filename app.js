@@ -215,8 +215,17 @@ function speak(text) {
 // ── BUILD EXERCISE LISTS ──────────────────────────────────────
 function buildExercises(sectionId) {
   switch (sectionId) {
-    case 'listen':
-      return shuffle(DATA.listening).slice(0, 5).map(item => ({ type: 'listen', ...item }));
+    case 'listen': {
+      const conv = pick(DATA.listening, 1)[0];
+      return conv.questions.map(q => ({
+        type: 'listen',
+        speech: conv.speech,
+        title: conv.title,
+        question: q.q,
+        options: q.options,
+        answer: q.answer,
+      }));
+    }
 
     case 'vocab': {
       const wtp = shuffle(DATA.wordToPicture).slice(0, 8).map(item => ({
@@ -405,7 +414,7 @@ function renderListen(ex) {
       <div class="hint-he">שאלה • Question</div>
     </div>
     <button class="listen-btn" data-action="speak" data-text="${encodeURIComponent(ex.speech)}">
-      <span class="icon">🔊</span> Listen Again / האזינו
+      <span class="icon">🔊</span> Listen / האזינו
     </button>
     <div class="options-grid single-col">${optBtns}</div>`;
 }
@@ -1037,11 +1046,6 @@ function nextExercise() {
     state.writingLocked = null;
     state.screen = 'exercise';
 
-    // Auto-speak next listening exercise
-    const next = state.exercises[state.idx];
-    if (next && next.type === 'listen') {
-      setTimeout(() => speak(next.speech), 300);
-    }
     render();
   } else {
     // Show results
