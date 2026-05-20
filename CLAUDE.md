@@ -71,7 +71,7 @@ const state = {
 | id | Title | Exercises | Exercise types |
 |----|-------|-----------|----------------|
 | `listen` | Listen & Mark | 3 questions from 1 random conversation (bank of 8) | `listen` (TTS + click) |
-| `vocab` | Vocabulary | ~22 (8 word-to-pic + 8 sentence-type + 6 qa-match, shuffled) | `word-to-picture`, `sentence-type`, `qa-match` |
+| `vocab` | Vocabulary | 10 (3 word-to-pic + 4 sentence-type + 3 qa-match, shuffled) | `word-to-picture`, `sentence-type`, `qa-match` |
 | `sounds` | Sounds 🔡 | 12 (4 per sound le/er/ir; 2 choose + 2 type each) | `sound-choose`, `sound-type` |
 | `truefalse` | True or False | 12 of 20 | `truefalse` |
 | `reading` | Reading | 3 questions from 1 random passage (bank of 8) | `reading-choice`, `reading-type` |
@@ -204,7 +204,9 @@ Key classes:
 - Prefers female voice if available
 - All listening exercises use real names (not "A says / B says")
 - Does NOT auto-play; user clicks the "Listen" button to hear the conversation
-- Replay button is always visible (not hidden after first play)
+- Listen button toggles: press while speaking → stops; press again → restarts
+- Button label switches between "🔊 Listen / האזינו" and "⏹ Stop / עצור"
+- Button resets to Listen automatically when speech ends naturally (`utt.onend` → `render()`)
 
 ---
 
@@ -275,6 +277,11 @@ The app is **complete and live**. All 8 sections are working. The most recently 
 - **Reading expanded**: 8 passages (was 3), each 5 sentences + 3 questions;
   1 passage chosen randomly per session
 - **Writing expanded**: 10 exercises (was 5); 3 chosen randomly per session
+- Code review: 4 bugs fixed (getCorrectDisplay reading-choice, sound-type hint ar, dead code in attach, handleCheckSound revealed guard)
+- **Vocabulary reduced**: 22 → 10 questions per session (3 word-to-pic + 4 sentence-type + 3 qa-match)
+- **Typed input UX**: wrong answer text preserved in input after failed attempt; text is selected on re-focus so student can edit or retype
+- **Listen button toggles**: press to start, press again to stop, resets automatically when speech ends
+- Table emoji fixed in sounds section (🪑 → 🍽️)
 
 **No outstanding bugs or pending tasks.** Waiting for next user review feedback.
 
