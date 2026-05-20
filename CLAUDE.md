@@ -72,11 +72,12 @@ const state = {
 |----|-------|-----------|----------------|
 | `listen` | Listen & Mark | 5 | `listen` (TTS + click) |
 | `vocab` | Vocabulary | ~22 (8 word-to-pic + 8 sentence-type + 6 qa-match, shuffled) | `word-to-picture`, `sentence-type`, `qa-match` |
-| `sounds` | Sounds | 12 (4 per sound le/er/ir; 2 choose + 2 type each) | `sound-choose`, `sound-type` |
+| `sounds` | Sounds 🔡 | 12 (4 per sound le/er/ir; 2 choose + 2 type each) | `sound-choose`, `sound-type` |
 | `truefalse` | True or False | 12 of 20 | `truefalse` |
 | `reading` | Reading | 5 questions from 1 random passage | `reading-choice`, `reading-type` |
-| `writing` | Fill in the Blanks | 5 | `writing` |
+| `writing` | Fill in the Blanks 🧩 | 5 | `writing` |
 | `time` | What Time Is It? | 10 of 24 | `time-type` |
+| `spelling` | Spelling ✏️ | 10 of 34 | `spelling` |
 
 ---
 
@@ -236,15 +237,22 @@ Live site updates in ~1–2 minutes. No build step.
 
 ---
 
-## Where we left off (as of 2026-05-19)
+## Where we left off (as of 2026-05-20)
 
-The app is **complete and live**. All 7 sections are working. The most recently completed work:
+The app is **complete and live**. All 8 sections are working. The most recently completed work:
 - Material narrowed to green p01–p16 + yellow p01–p03 (verified by re-reading all 19 pages)
 - `data.js` rewritten with trimmed content; old full content archived as `data-unit3-full.js`
 - `ar` sound removed from sounds section (no supporting words in the given pages)
 - CONFIG block added to top of `data.js` for easy per-exam customization
 - Sounds exercise refactored to derive sound list dynamically from `DATA.sounds` —
   adding/removing a sound in `data.js` now flows through automatically with no `app.js` changes
+- True/False: replaced context-dependent "Bella is thirsty at half past eleven" with
+  "When you are thirsty, you eat dinner." (false) — tests vocabulary without passage memorization
+- TTS name "Noa" → "Lisa" in bella_listen exercise (clearer pronunciation)
+- TTS rate slowed from 0.85 to 0.75 for clearer listening exercises
+- **New Spelling section (8th)** — shows emoji + Hebrew hint, user types English word from memory;
+  10 random words from `DATA.vocabulary` per session; same retry mechanic as other type exercises
+- Section icons updated: Sounds=🔡, Fill in the Blanks=🧩, Spelling=✏️
 
 **No outstanding bugs or pending tasks.** Waiting for next user review feedback.
 
