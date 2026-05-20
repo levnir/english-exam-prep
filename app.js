@@ -228,20 +228,20 @@ function buildExercises(sectionId) {
     }
 
     case 'vocab': {
-      const wtp = shuffle(DATA.wordToPicture).slice(0, 8).map(item => ({
+      const wtp = shuffle(DATA.wordToPicture).slice(0, 3).map(item => ({
         type: 'word-to-picture',
         word: item.word,
         options: shuffle([item.correct, ...item.distractors]),
         correct: item.correct,
       }));
-      const sc = shuffle(DATA.sentenceCompletion).slice(0, 8).map(item => ({
+      const sc = shuffle(DATA.sentenceCompletion).slice(0, 4).map(item => ({
         type: 'sentence-type',
         sentence: item.sentence,
         answer: item.answer,
         emoji: item.emoji,
         hint: item.hint,
       }));
-      const qa = shuffle(DATA.qaMatching).slice(0, 6).map(item => ({
+      const qa = shuffle(DATA.qaMatching).slice(0, 3).map(item => ({
         type: 'qa-match',
         question: item.question,
         correct: item.correct,
