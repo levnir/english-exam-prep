@@ -1417,3 +1417,112 @@ You are right — I meant 5 sentences. Let's go for Option A: 5 sentences and 3 
 [193] CLAUDE  (2026-05-20)
 --------------------------------------------------
 Rewrote all 8 reading passages to 5 sentences + 3 questions each. Committed and pushed. Updated CLAUDE.md and chat-history.txt.
+
+[194] YOU  (2026-05-20)
+--------------------------------------------------
+There seems to be a bug — the reading section always presents the same passage.
+
+[195] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Investigated: shuffle() already creates a copy ([...arr]), so no in-place mutation bug. Confirmed the issue was a browser cache serving old data.js (3 passages) before the 8-passage rewrite loaded. Resolved on its own once cache expired.
+
+[196] YOU  (2026-05-20)
+--------------------------------------------------
+I made a few more tries and the bug does not appear anymore.
+
+[197] YOU  (2026-05-20)
+--------------------------------------------------
+Can you make a review of the entire code, looking for potential bugs or issues?
+
+[198] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Read all of app.js and data.js. Found 4 issues:
+1. getCorrectDisplay missing reading-choice case → empty answer text on reveal
+2. renderSoundType hint/placeholder hardcoded "le / er / ir / ar" (ar not in scope)
+3. Dead code in attach() leftover from auto-play removal
+4. handleCheckSound missing revealed guard (inconsistent with handleCheckType/Time)
+User asked two questions: (1) Bug 1 can't happen with 3 options — fix is defensive for future. (2) Hardcoding "le/er/ir" would violate data.js-only principle — correct fix is to derive from DATA.sounds dynamically. User approved all fixes.
+
+[199] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Fixed all 4 issues in app.js. Committed and pushed. Updated CLAUDE.md.
+
+[200] YOU  (2026-05-20)
+--------------------------------------------------
+In sounds section, the icon for "table" (🪑 chair) does not match the word.
+
+[201] CLAUDE  (2026-05-20)
+--------------------------------------------------
+No standard table emoji exists. Suggested 🍽️ as closest option. User approved. Changed in data.js, committed and pushed.
+
+[202] YOU  (2026-05-20)
+--------------------------------------------------
+I want the incorrect typed text to remain in the text box after a wrong attempt so the user can revise it.
+
+[203] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Described plan: change all 5 typed-input renderers from value="${state.answered ? (state.typedAnswer || '') : ''}" to value="${state.typedAnswer || ''}". Fresh questions still empty because nextExercise() and startSection() both reset state.typedAnswer = null. User confirmed understanding and approved.
+
+[204] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Applied replace_all to change all 5 occurrences in one edit. Committed and pushed.
+
+[205] YOU  (2026-05-20)
+--------------------------------------------------
+The cursor moves before the first character after a wrong attempt, which is inconvenient. What are the options?
+
+[206] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Described 4 options: end of text, select all, keep at beginning (current), remember position. Recommended select all — student sees previous answer highlighted, can click to correct or retype. User chose option 2.
+
+[207] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Added inp.select() after inp.focus() in attach(). Committed and pushed.
+
+[208] YOU  (2026-05-20)
+--------------------------------------------------
+In the vocabulary section there are 22 questions. I prefer only 10. How are they chosen?
+
+[209] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Explained: 8 word-to-picture + 8 sentence-completion + 6 qa-match, all randomly drawn, shuffled together. Proposed 4+4+2 or 3+4+3. User chose 3+4+3.
+
+[210] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Changed 3 slice values in buildExercises vocab case. Committed and pushed.
+
+[211] YOU  (2026-05-20)
+--------------------------------------------------
+Is it possible that pressing the Listen button again during speech will stop the speech, and pressing again restarts?
+
+[212] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Described plan: toggle logic in handleClick using speechSynthesis.speaking; utt.onend → render() to reset button label; button shows "⏹ Stop / עצור" while speaking. User approved.
+
+[213] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Implemented toggle in speak(), handleClick, and renderListen(). Committed and pushed.
+
+[214] YOU  (2026-05-20)
+--------------------------------------------------
+Update CLAUDE.md with today's changes.
+
+[215] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Updated CLAUDE.md: sections table (vocab 10 questions), TTS section (toggle behaviour), "where we left off" (all today's changes). Committed and pushed.
+
+[216] YOU  (2026-05-20)
+--------------------------------------------------
+The vocabulary section instructions don't mention Q&A matching. Please suggest a revision.
+
+[217] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Suggested: "Match words to pictures, fill in the blanks, and match questions to answers." / "התאימו מילים לתמונות, השלימו משפטים, והתאימו שאלות לתשובות." User approved. Updated app.js, committed and pushed. Updated CLAUDE.md.
+
+[218] YOU  (2026-05-20)
+--------------------------------------------------
+Update chat history file.
+
+[219] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Appended messages 194–219 to chat-history.txt.
