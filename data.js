@@ -360,6 +360,149 @@ const DATA = {
         },
       ]
     },
+    {
+      id: "safari_animals",
+      title: "Animals at the Safari",
+      emoji: "🦁",
+      color: "#F6D365",
+      text: "Look at the animals!\nA lion is big and fast. It lives in Africa.\nA zebra is beautiful. It is black and white.\nAn elephant has big ears and a long nose. It plays in the water.\nA hippo walks in the water. It cannot swim fast.\nA turtle is slow. It has a funny face. It can swim and walk.\nAnimals are cool!",
+      questions: [
+        {
+          q: "Where does a lion live?",
+          type: "type",
+          answer: "Africa"
+        },
+        {
+          q: "What does an elephant do in the water?",
+          type: "choice",
+          options: ["It sleeps", "It plays", "It swims fast"],
+          answer: 1
+        },
+        {
+          q: "Can hippos swim fast?",
+          type: "choice",
+          options: ["Yes, they can.", "No, they can't.", "Only a little."],
+          answer: 1
+        },
+        {
+          q: "Write one word: A turtle is ___ and has a funny face.",
+          type: "type",
+          answer: "slow"
+        },
+      ]
+    },
+    {
+      id: "toms_day",
+      title: "Tom's Day",
+      emoji: "🕐",
+      color: "#FDCB6E",
+      text: "My name is Tom. This is my day.\nI wake up at seven o'clock.\nAt half past eight, I go to school.\nAt one o'clock, I am hungry. I eat dinner.\nAt half past five, I am thirsty. I drink water.\nAt nine o'clock, I am tired. I go to sleep.",
+      questions: [
+        {
+          q: "What time does Tom wake up?",
+          type: "choice",
+          options: ["Six o'clock", "Seven o'clock", "Half past seven"],
+          answer: 1
+        },
+        {
+          q: "Why does Tom eat dinner?",
+          type: "choice",
+          options: ["He is thirsty", "He is tired", "He is hungry"],
+          answer: 2
+        },
+        {
+          q: "What does Tom do at half past five?",
+          type: "choice",
+          options: ["He eats dinner", "He goes to sleep", "He drinks water"],
+          answer: 2
+        },
+        {
+          q: "Write one word: At nine o'clock, Tom is ___.",
+          type: "type",
+          answer: "tired"
+        },
+      ]
+    },
+    {
+      id: "betty_bird",
+      title: "Betty Bird",
+      emoji: "🐦",
+      color: "#A29BFE",
+      text: "Look at Betty Bird!\nShe can sing in English. She can sing in Hebrew too.\nAnd she can sing in Arabic!\nBetty can fly in the sky.\nThe people are watching her. They are smiling.\nBetty is good at singing. She is great!",
+      questions: [
+        {
+          q: "What can Betty do?",
+          type: "choice",
+          options: ["Swim and dance", "Sing and fly", "Run and jump"],
+          answer: 1
+        },
+        {
+          q: "How many languages can Betty sing in?",
+          type: "choice",
+          options: ["One", "Two", "Three"],
+          answer: 2
+        },
+        {
+          q: "What are the people doing?",
+          type: "choice",
+          options: ["Singing", "Smiling", "Dancing"],
+          answer: 1
+        },
+      ]
+    },
+    {
+      id: "my_favourite",
+      title: "My Favourite Animal",
+      emoji: "🐧",
+      color: "#74B9FF",
+      text: "My name is Dana. My favourite animal is the penguin.\nA penguin is a bird. But it cannot fly!\nA penguin cannot sing.\nA penguin is good at swimming. It can do tricks too.\nPenguins are great animals!\nI love penguins!",
+      questions: [
+        {
+          q: "Write one word: Dana's favourite animal is the ___.",
+          type: "type",
+          answer: "penguin"
+        },
+        {
+          q: "Can a penguin fly?",
+          type: "choice",
+          options: ["Yes, it can.", "No, it can't.", "Only a little."],
+          answer: 1
+        },
+        {
+          q: "What is a penguin good at?",
+          type: "choice",
+          options: ["Singing", "Flying", "Swimming"],
+          answer: 2
+        },
+      ]
+    },
+    {
+      id: "lion_turtle",
+      title: "The Lion and the Turtle",
+      emoji: "🦁🐢",
+      color: "#55EFC4",
+      text: "Look at the lion! It is behind a big tree.\nThe lion is big and fast. It wants to eat the turtle.\nNow look at the turtle. It is near the water.\nThe turtle is slow. It has a funny face.\nThe turtle goes into the water. The lion cannot swim.\nThe turtle is safe! Turtles are cool!",
+      questions: [
+        {
+          q: "Where is the lion?",
+          type: "choice",
+          options: ["Near the water", "Behind a big tree", "In the water"],
+          answer: 1
+        },
+        {
+          q: "What does the lion want?",
+          type: "choice",
+          options: ["To swim in the water", "To eat the turtle", "To play with the turtle"],
+          answer: 1
+        },
+        {
+          q: "Why is the turtle safe?",
+          type: "choice",
+          options: ["Turtles are fast", "The lion is scared", "The lion cannot swim"],
+          answer: 2
+        },
+      ]
+    },
   ],
 
   // ----------------------------------------------------------
@@ -461,6 +604,101 @@ const DATA = {
         { text: "." },
       ],
       wordBank: ["woman", "Arabic", "tricks", "watch", "smile"],
+    },
+    {
+      id: "toms_day",
+      title: "Tom's Day",
+      emoji: "🕐",
+      segments: [
+        { text: "My name is Tom. I wake up at " },
+        { blank: true, answer: "seven" },
+        { text: " o'clock. I am hungry. I eat " },
+        { blank: true, answer: "dinner" },
+        { text: ". At half past five, I am " },
+        { blank: true, answer: "thirsty" },
+        { text: ". I drink water. At nine o'clock, I am " },
+        { blank: true, answer: "tired" },
+        { text: ". I go to " },
+        { blank: true, answer: "sleep" },
+        { text: "." },
+      ],
+      wordBank: ["seven", "dinner", "thirsty", "tired", "sleep"],
+    },
+    {
+      id: "animal_facts",
+      title: "Animal Facts",
+      emoji: "🐾",
+      segments: [
+        { text: "A lion is a big " },
+        { blank: true, answer: "animal" },
+        { text: ". It is fast. A zebra is " },
+        { blank: true, answer: "black" },
+        { text: " and white. An elephant has big ears and a long " },
+        { blank: true, answer: "nose" },
+        { text: ". A turtle is very " },
+        { blank: true, answer: "slow" },
+        { text: ". A hippo walks in the " },
+        { blank: true, answer: "water" },
+        { text: "." },
+      ],
+      wordBank: ["animal", "black", "nose", "slow", "water"],
+    },
+    {
+      id: "betty_bird",
+      title: "Betty Bird",
+      emoji: "🐦",
+      segments: [
+        { text: "Betty is a " },
+        { blank: true, answer: "bird" },
+        { text: ". She can sing in " },
+        { blank: true, answer: "English" },
+        { text: ", Hebrew and Arabic. She can fly in the " },
+        { blank: true, answer: "sky" },
+        { text: ". The people watch Betty and " },
+        { blank: true, answer: "smile" },
+        { text: ". Betty is great at " },
+        { blank: true, answer: "singing" },
+        { text: "!" },
+      ],
+      wordBank: ["bird", "English", "sky", "smile", "singing"],
+    },
+    {
+      id: "feelings",
+      title: "Feelings",
+      emoji: "😊",
+      segments: [
+        { text: "When I am " },
+        { blank: true, answer: "thirsty" },
+        { text: ", I drink water. When I am " },
+        { blank: true, answer: "hungry" },
+        { text: ", I eat dinner. When I am " },
+        { blank: true, answer: "tired" },
+        { text: ", I go to sleep. When I am " },
+        { blank: true, answer: "dirty" },
+        { text: ", I run to the bath. When I am " },
+        { blank: true, answer: "scared" },
+        { text: ", I do not want to go to school." },
+      ],
+      wordBank: ["thirsty", "hungry", "tired", "dirty", "scared"],
+    },
+    {
+      id: "the_lion",
+      title: "The Lion",
+      emoji: "🦁",
+      segments: [
+        { text: "A " },
+        { blank: true, answer: "lion" },
+        { text: " is big and fast. It lives in Africa. It has a big mouth and a funny " },
+        { blank: true, answer: "face" },
+        { text: ". A lion is " },
+        { blank: true, answer: "cool" },
+        { text: "! The lion is " },
+        { blank: true, answer: "behind" },
+        { text: " the tree. I am " },
+        { blank: true, answer: "scared" },
+        { text: " of lions!" },
+      ],
+      wordBank: ["lion", "face", "cool", "behind", "scared"],
     },
   ],
 

@@ -286,7 +286,7 @@ function buildExercises(sectionId) {
     }
 
     case 'writing':
-      return shuffle(DATA.writing).slice(0, 5).map(ex => ({ type: 'writing', ...ex, wordBank: shuffle([...ex.wordBank]) }));
+      return shuffle(DATA.writing).slice(0, 3).map(ex => ({ type: 'writing', ...ex, wordBank: shuffle([...ex.wordBank]) }));
 
     case 'time':
       return shuffle(DATA.clockTimes).slice(0, 5).map(item => ({
