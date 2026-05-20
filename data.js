@@ -251,24 +251,12 @@ const DATA = {
       title: "Safari Animals Are Cool",
       emoji: "🦒",
       color: "#55EFC4",
-      text: "Jane, Percy and Liz are at the Safari Park.\nJane: Good morning! I help animals at the Safari Park.\nLiz: Look at the zebra! It's beautiful!\nLiz: Look! There is a lion behind the zebra. I'm scared of lions.\nPercy: There is a turtle near the water. It has a funny face.\nLiz: Look in the water! There are two elephants. They are playing.\nPercy: There are hippos in the water too. They are swimming.\nJane: No, they are walking in the water. Hippos can't swim.\nPercy: Wow! Hippos are cool!",
+      text: "Jane, Percy and Liz are at the Safari Park.\nThere is a lion behind the zebra — Liz is scared of lions.\nThere is a turtle near the water. It has a funny face.\nTwo elephants are playing in the water.\nHippos are in the water too, but they cannot swim.",
       questions: [
         {
-          q: "Where are Jane, Percy and Liz?",
-          type: "choice",
-          options: ["At the beach", "At the Safari Park", "At the hospital"],
-          answer: 1
-        },
-        {
-          q: "What is behind the zebra?",
+          q: "Write one word: There is a ___ behind the zebra.",
           type: "type",
           answer: "lion"
-        },
-        {
-          q: "What are the elephants doing?",
-          type: "choice",
-          options: ["Walking", "Playing", "Swimming"],
-          answer: 1
         },
         {
           q: "Who has a funny face?",
@@ -289,7 +277,7 @@ const DATA = {
       title: "Bella's Day",
       emoji: "🐕",
       color: "#4ECDC4",
-      text: "Meet my dog Bella. This is Bella's day.\nBella wakes up at seven o'clock.\nAt nine o'clock, Bella plays at home.\nAt half past eleven, Bella is thirsty. She drinks water.\nAt five o'clock, Bella is hungry. She eats dinner.\nAt half past five, Bella plays with friends.\nAt half past seven, Bella is dirty. She runs to the bath.\nAt half past nine, Bella is tired.",
+      text: "This is Bella the dog.\nBella wakes up at seven o'clock.\nAt half past eleven, Bella is thirsty and drinks water.\nAt five o'clock, Bella is hungry and eats dinner.\nAt half past seven, Bella is dirty and runs to the bath.",
       questions: [
         {
           q: "What time does Bella wake up?",
@@ -304,18 +292,6 @@ const DATA = {
           answer: 1
         },
         {
-          q: "What does Bella do at half past five?",
-          type: "choice",
-          options: ["She plays at home", "She plays with friends", "She runs to the bath"],
-          answer: 1
-        },
-        {
-          q: "How does Bella feel at half past nine?",
-          type: "choice",
-          options: ["Hungry", "Dirty", "Tired"],
-          answer: 2
-        },
-        {
           q: "Write one word: Bella runs to the bath because she is ___.",
           type: "type",
           answer: "dirty"
@@ -327,7 +303,7 @@ const DATA = {
       title: "Peter Penguin",
       emoji: "🐧",
       color: "#74B9FF",
-      text: "It is a cold winter day. The people are watching Betty Bird.\nShe can sing in English, Hebrew and Arabic.\nPeter Penguin is listening.\n\"I want to sing,\" says Peter.\nBetty Bird is flying in the sky. The people are smiling.\n\"I want to fly,\" says Peter.\n\"You are a penguin. You can't fly. You can't sing,\" say the people.\n\"I am good at swimming. I am good at tricks,\" says Peter.\n\"You are great, Peter!\" say the people.",
+      text: "It is a cold winter day.\nBetty Bird can sing in English, Hebrew and Arabic, and she can fly.\nPeter Penguin wants to sing and fly too.\nThe people say: you are a penguin — you cannot fly or sing.\nPeter says he is good at swimming and tricks, and the people say he is great!",
       questions: [
         {
           q: "What can Betty Bird do?",
@@ -346,18 +322,6 @@ const DATA = {
           type: "type",
           answer: "tricks"
         },
-        {
-          q: "What is the weather like?",
-          type: "choice",
-          options: ["Hot and sunny", "Cold and windy", "Cold winter day"],
-          answer: 2
-        },
-        {
-          q: "How do the people feel at the end?",
-          type: "choice",
-          options: ["Scared", "Tired", "Happy"],
-          answer: 2
-        },
       ]
     },
     {
@@ -365,18 +329,12 @@ const DATA = {
       title: "Animals at the Safari",
       emoji: "🦁",
       color: "#F6D365",
-      text: "Look at the animals!\nA lion is big and fast. It lives in Africa.\nA zebra is beautiful. It is black and white.\nAn elephant has big ears and a long nose. It plays in the water.\nA hippo walks in the water. It cannot swim fast.\nA turtle is slow. It has a funny face. It can swim and walk.\nAnimals are cool!",
+      text: "A lion is big and fast and lives in Africa.\nAn elephant has big ears and a long nose.\nA hippo walks in the water — it cannot swim fast.\nA turtle is slow and has a funny face.\nA turtle can swim and walk.",
       questions: [
         {
-          q: "Where does a lion live?",
+          q: "Write one word: A lion lives in ___.",
           type: "type",
           answer: "Africa"
-        },
-        {
-          q: "What does an elephant do in the water?",
-          type: "choice",
-          options: ["It sleeps", "It plays", "It swims fast"],
-          answer: 1
         },
         {
           q: "Can hippos swim fast?",
@@ -396,7 +354,7 @@ const DATA = {
       title: "Tom's Day",
       emoji: "🕐",
       color: "#FDCB6E",
-      text: "My name is Tom. This is my day.\nI wake up at seven o'clock.\nAt half past eight, I go to school.\nAt one o'clock, I am hungry. I eat dinner.\nAt half past five, I am thirsty. I drink water.\nAt nine o'clock, I am tired. I go to sleep.",
+      text: "My name is Tom.\nI wake up at seven o'clock.\nAt one o'clock, I am hungry and eat dinner.\nAt half past five, I am thirsty and drink water.\nAt nine o'clock, I am tired and go to sleep.",
       questions: [
         {
           q: "What time does Tom wake up?",
@@ -405,15 +363,9 @@ const DATA = {
           answer: 1
         },
         {
-          q: "Why does Tom eat dinner?",
+          q: "Why does Tom drink water?",
           type: "choice",
-          options: ["He is thirsty", "He is tired", "He is hungry"],
-          answer: 2
-        },
-        {
-          q: "What does Tom do at half past five?",
-          type: "choice",
-          options: ["He eats dinner", "He goes to sleep", "He drinks water"],
+          options: ["He is hungry", "He is tired", "He is thirsty"],
           answer: 2
         },
         {
@@ -428,7 +380,7 @@ const DATA = {
       title: "Betty Bird",
       emoji: "🐦",
       color: "#A29BFE",
-      text: "Look at Betty Bird!\nShe can sing in English. She can sing in Hebrew too.\nAnd she can sing in Arabic!\nBetty can fly in the sky.\nThe people are watching her. They are smiling.\nBetty is good at singing. She is great!",
+      text: "Betty Bird can sing in English, Hebrew and Arabic.\nShe can fly in the sky too.\nThe people watch Betty and smile.\nBetty is good at singing.\nShe is great!",
       questions: [
         {
           q: "What can Betty do?",
@@ -443,9 +395,9 @@ const DATA = {
           answer: 2
         },
         {
-          q: "What are the people doing?",
+          q: "What do the people do when they watch Betty?",
           type: "choice",
-          options: ["Singing", "Smiling", "Dancing"],
+          options: ["Sing", "Smile", "Dance"],
           answer: 1
         },
       ]
@@ -455,7 +407,7 @@ const DATA = {
       title: "My Favourite Animal",
       emoji: "🐧",
       color: "#74B9FF",
-      text: "My name is Dana. My favourite animal is the penguin.\nA penguin is a bird. But it cannot fly!\nA penguin cannot sing.\nA penguin is good at swimming. It can do tricks too.\nPenguins are great animals!\nI love penguins!",
+      text: "My name is Dana and my favourite animal is the penguin.\nA penguin is a bird, but it cannot fly or sing.\nA penguin is good at swimming.\nIt can do tricks too.\nI love penguins!",
       questions: [
         {
           q: "Write one word: Dana's favourite animal is the ___.",
@@ -481,7 +433,7 @@ const DATA = {
       title: "The Lion and the Turtle",
       emoji: "🦁🐢",
       color: "#55EFC4",
-      text: "Look at the lion! It is behind a big tree.\nThe lion is big and fast. It wants to eat the turtle.\nNow look at the turtle. It is near the water.\nThe turtle is slow. It has a funny face.\nThe turtle goes into the water. The lion cannot swim.\nThe turtle is safe! Turtles are cool!",
+      text: "The lion is behind a big tree.\nThe lion is big and fast and wants to eat the turtle.\nThe turtle is slow and near the water.\nThe turtle goes into the water — the lion cannot swim.\nThe turtle is safe!",
       questions: [
         {
           q: "Where is the lion?",
