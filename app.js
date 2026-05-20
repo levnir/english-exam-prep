@@ -5,7 +5,7 @@
 // ── SECTION DEFINITIONS ──────────────────────────────────────
 const SECTIONS = [
   { id: 'listen',   emoji: '👂', title: 'Listen & Mark',    titleHe: 'האזנה',          color: '#E63946', desc: 'Listen to the conversation and answer.',   descHe: 'האזינו לשיחה וענו על השאלה.' },
-  { id: 'vocab',    emoji: '📚', title: 'Vocabulary',        titleHe: 'אוצר מילים',     color: '#4ECDC4', desc: 'Match words to pictures and fill sentences.', descHe: 'התאימו מילים לתמונות והשלימו משפטים.' },
+  { id: 'vocab',    emoji: '📚', title: 'Vocabulary',        titleHe: 'אוצר מילים',     color: '#4ECDC4', desc: 'Match words to pictures, fill in the blanks, and match questions to answers.', descHe: 'התאימו מילים לתמונות, השלימו משפטים, והתאימו שאלות לתשובות.' },
   { id: 'sounds',   emoji: '🔡', title: 'Sounds',            titleHe: 'צלילים',         color: '#45B7D1', desc: 'Complete the word with le, er, or ir.',      descHe: 'השלימו את המילה עם le, er, ir.' },
   { id: 'truefalse',emoji: '✅', title: 'True or False',     titleHe: 'נכון / לא נכון', color: '#2D6A4F', desc: 'Is the sentence true or false?',             descHe: 'האם המשפט נכון או לא נכון?' },
   { id: 'reading',  emoji: '📖', title: 'Reading',           titleHe: 'קריאה והבנה',   color: '#6C5CE7', desc: 'Read the passage and answer questions.',     descHe: 'קראו את הקטע וענו על השאלות.' },
