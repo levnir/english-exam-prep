@@ -680,7 +680,7 @@ function renderFeedback() {
     </div>`;
   }
 
-  const isTyped = ['sentence-type','reading-type','sound-type','time-type'].includes(ex.type);
+  const isTyped = ['sentence-type','reading-type','sound-type','time-type','spelling'].includes(ex.type);
 
   if (state.revealed) {
     const correctDisplay = getCorrectDisplay(ex);
