@@ -764,7 +764,7 @@ function renderResult() {
 // ── EVENT HANDLERS ────────────────────────────────────────────
 function attach() {
   const inp = document.getElementById('typeInput');
-  if (inp) setTimeout(() => inp.focus(), 80);
+  if (inp) setTimeout(() => { inp.focus(); inp.select(); }, 80);
 }
 
 function handleClick(e) {
