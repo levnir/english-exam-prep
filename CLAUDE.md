@@ -76,7 +76,7 @@ const state = {
 | `truefalse` | True or False | 12 of 20 | `truefalse` |
 | `reading` | Reading | 5 questions from 1 random passage | `reading-choice`, `reading-type` |
 | `writing` | Fill in the Blanks 🧩 | 5 | `writing` |
-| `time` | What Time Is It? | 10 of 24 | `time-type` |
+| `time` | What Time Is It? | 5 of 24 | `time-type` |
 | `spelling` | Spelling ✏️ | 10 of 34 | `spelling` |
 
 ---
@@ -253,6 +253,7 @@ The app is **complete and live**. All 8 sections are working. The most recently 
 - **New Spelling section (8th)** — shows emoji + Hebrew hint, user types English word from memory;
   10 random words from `DATA.vocabulary` per session; same retry mechanic as other type exercises
 - Section icons updated: Sounds=🔡, Fill in the Blanks=🧩, Spelling=✏️
+- Clock section reduced from 10 to 5 questions per session
 
 **No outstanding bugs or pending tasks.** Waiting for next user review feedback.
 
