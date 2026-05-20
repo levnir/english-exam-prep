@@ -233,6 +233,10 @@ Best score per section is saved (never decremented).
 3. **"Close" too lenient** — close answers previously advanced question. Fixed: close treated same as wrong (increments attempts, no advance).
 4. **Writing section string vs index** — rewrote to store word-bank indices in `writingFilled`, not string values.
 5. **TTS name "Yael" unclear** — changed to "Maya" throughout.
+6. **`getCorrectDisplay` missing `reading-choice`** — returned empty string on reveal; fixed by adding `ex.options[ex.answer]` case (same as `listen`).
+7. **Sound-type hint hardcoded 'ar'** — hint and placeholder in `renderSoundType` said "le / er / ir / ar"; fixed to derive the list dynamically from `DATA.sounds` so material changes in `data.js` flow through automatically.
+8. **Dead code in `attach()`** — leftover from auto-play removal set `listenPlayed = false` when it was already false; removed.
+9. **`handleCheckSound` missing revealed guard** — unlike `handleCheckType`/`handleCheckTime`, continued incrementing `state.attempts` after reveal; fixed by adding the same `if (state.revealed)` guard.
 
 ---
 
