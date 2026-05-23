@@ -22,7 +22,7 @@ data-unit3-full.js       — ARCHIVE: full unit 3 data (all pages); swap in as d
 data-backup-2026-05-23.js— BACKUP: data.js snapshot before vocabulary expansion (2026-05-23)
 exam-material-summary.txt— detailed summary of exam material (all 10 sections)
 chat-history.txt         — human-readable log of the full first conversation session
-teacher/                 — teacher-supplied files (excluded from git via .gitignore)
+exam-material/                 — teacher-supplied files (excluded from git via .gitignore)
   links.html             — kid-friendly page with all 10 exam prep links (Wordwall, games, videos)
   images/                — PNG renders of the 3 teacher PDFs (via PyMuPDF at 150 DPI)
   pdf_images/            — additional PDF renders
@@ -316,8 +316,8 @@ The app is **complete and live**. All 8 sections are working. The most recently 
 - wordToPicture expanded 20 → 56, sentenceCompletion 24 → ~71, qaMatching 10 → 15,
   trueFalse 20 → 33, writing 20 → 24 (4 new exercises using new vocabulary)
 - `data-backup-2026-05-23.js` created before expansion
-- `teacher/links.html` created: kid-friendly page with all 10 exam prep links
-- Teacher PDFs rendered to PNG images in `teacher/images/`
+- `exam-material/links.html` created: kid-friendly page with all 10 exam prep links
+- Teacher PDFs rendered to PNG images in `exam-material/images/`
 
 **No outstanding bugs or pending tasks.** Waiting for next user review feedback.
 
@@ -325,12 +325,12 @@ The app is **complete and live**. All 8 sections are working. The most recently 
 
 ## Source material
 
-- `teacher/מבדק באנגלית 26-05-2026.txt` — teacher's Hebrew note (exam structure + Wordwall links)
+- `exam-material/מבדק באנגלית 26-05-2026.txt` — teacher's Hebrew note (exam structure + Wordwall links)
 - Green book: "Jet 2 Learn and Practice" (scanned, read via PyMuPDF → PNG images), pages p01–p16
 - Yellow book: "Jet 2 Reading and More" (scanned, read via PyMuPDF → PNG images), pages p01–p03
-- `teacher/Vocab review- Unit 3 ...pdf` — 2-page vocabulary self-check worksheet (primary source for vocabulary expansion)
-- `teacher/חזרה jet 2 Unit 3.pdf` — 2-page reading/translation worksheet (secondary source for vocabulary expansion)
-- `teacher/Jet 2 unit 3 Review.pdf` — teacher review checklist; used **only** for extracting links (not for vocabulary)
+- `exam-material/Vocab review- Unit 3 ...pdf` — 2-page vocabulary self-check worksheet (primary source for vocabulary expansion)
+- `exam-material/חזרה jet 2 Unit 3.pdf` — 2-page reading/translation worksheet (secondary source for vocabulary expansion)
+- `exam-material/Jet 2 unit 3 Review.pdf` — teacher review checklist; used **only** for extracting links (not for vocabulary)
 - Three Wordwall vocabulary links (fetched at project start)
 
 All exam content is documented in `exam-material-summary.txt`.
