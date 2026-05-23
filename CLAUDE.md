@@ -71,13 +71,13 @@ const state = {
 | id | Title | Exercises | Exercise types |
 |----|-------|-----------|----------------|
 | `listen` | Listen & Mark | 3 questions from 1 random conversation (bank of 8) | `listen` (TTS + click) |
-| `vocab` | Vocabulary | 10 (3 word-to-pic + 4 sentence-type + 3 qa-match, shuffled) | `word-to-picture`, `sentence-type`, `qa-match` |
-| `sounds` | Sounds 🔡 | 12 (4 per sound le/er/ir; 2 choose + 2 type each) | `sound-choose`, `sound-type` |
-| `truefalse` | True or False | 12 of 20 | `truefalse` |
+| `vocab` | Vocabulary | 6 (2 word-to-pic + 2 sentence-type + 2 qa-match, shuffled) | `word-to-picture`, `sentence-type`, `qa-match` |
+| `sounds` | Sounds 🔡 | 6 (1 choose + 1 type per sound, le/er/ir) | `sound-choose`, `sound-type` |
+| `truefalse` | True or False | 6 of 20 | `truefalse` |
 | `reading` | Reading | 3 questions from 1 random passage (bank of 8) | `reading-choice`, `reading-type` |
-| `writing` | Fill in the Blanks 🧩 | 3 of 10 | `writing` |
-| `time` | What Time Is It? | 5 of 24 | `time-type` |
-| `spelling` | Spelling ✏️ | 10 of 34 | `spelling` |
+| `writing` | Fill in the Blanks 🧩 | 3 of 20 | `writing` |
+| `time` | What Time Is It? | 5 of 24 (3 time-choice + 2 time-type, mixed randomly) | `time-choice`, `time-type` |
+| `spelling` | Spelling ✏️ | 6 of 34 | `spelling` |
 
 ---
 
@@ -139,9 +139,12 @@ DATA.passages[]          — 8 passages, each 5 sentences + 3 questions:
                            betty_bird, my_favourite, lion_turtle
                            Each has .text (5 sentences) and .questions[] (3 items, type "choice" or "type")
                            1 passage picked randomly per session; ALL 3 questions shown
-DATA.writing[]           — 10 fill-in exercises: safari_day, bella_day, peter_penguin,
+DATA.writing[]           — 20 fill-in exercises: safari_day, bella_day, peter_penguin,
                            animal_riddles, good_at, toms_day, animal_facts,
-                           betty_bird, feelings, the_lion
+                           betty_bird, feelings, the_lion,
+                           zebra_hippo, peter_can, carla_party, henry_birthday,
+                           hospital_help, animal_abilities, betty_languages,
+                           aris_day, lion_turtle_story, good_at_new
                            Each has .segments[] ({text} or {blank:true, answer}) and .wordBank[]
                            3 picked randomly per session
 DATA.listening[]         — 8 conversations; each has .speech (5 speaker lines) and .questions[] (3 items)
@@ -158,7 +161,7 @@ DATA.clockTimes[]        — 24 times: h (1–12), m (0 or 30), phrase ("It's X 
 
 Three sounds practiced: `le` (end of word), `er` (end), `ir` (middle). **`ar` is not in scope** — the given pages (green p01–p16, yellow p01–p03) contain no `ar` practice words.
 
-For each sound, 4 words selected: 2 shown as `sound-choose` (click le/er/ir), 2 as `sound-type` (type the missing sound).
+For each sound, 2 words selected: 1 shown as `sound-choose` (click le/er/ir), 1 as `sound-type` (type the missing sound).
 
 Full word list: **le** — turtle, table, apple, people, smile; **er** — dinner, water, winter, brother, summer, paper; **ir** — dirty, shirt, bird, thirsty, girl.
 
@@ -254,7 +257,7 @@ Live site updates in ~1–2 minutes. No build step.
 
 ---
 
-## Where we left off (as of 2026-05-20)
+## Where we left off (as of 2026-05-23)
 
 The app is **complete and live**. All 8 sections are working. The most recently completed work:
 - Material narrowed to green p01–p16 + yellow p01–p03 (verified by re-reading all 19 pages)
@@ -278,11 +281,14 @@ The app is **complete and live**. All 8 sections are working. The most recently 
   1 passage chosen randomly per session
 - **Writing expanded**: 10 exercises (was 5); 3 chosen randomly per session
 - Code review: 4 bugs fixed (getCorrectDisplay reading-choice, sound-type hint ar, dead code in attach, handleCheckSound revealed guard)
-- **Vocabulary reduced**: 22 → 10 questions per session (3 word-to-pic + 4 sentence-type + 3 qa-match)
+- **Vocabulary reduced**: 22 → 6 questions per session (2 word-to-pic + 2 sentence-type + 2 qa-match)
 - Vocabulary section instructions updated to cover all 3 question types (English + Hebrew)
 - **Typed input UX**: wrong answer text preserved in input after failed attempt; text is selected on re-focus so student can edit or retype
 - **Listen button toggles**: press to start, press again to stop, resets automatically when speech ends
 - Table emoji fixed in sounds section (🪑 → 🍽️)
+- **All sections capped at 6 questions per session**: vocab 2+2+2, sounds 1 choose+1 type per sound (6 total), truefalse 6, spelling 6
+- **Time section now mixed**: 3 time-choice (click) + 2 time-type (type) per session, randomly ordered
+- **Writing bank doubled**: 20 exercises total (was 10); session draw stays at 3
 
 **No outstanding bugs or pending tasks.** Waiting for next user review feedback.
 

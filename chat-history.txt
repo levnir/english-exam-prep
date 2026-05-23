@@ -1526,3 +1526,115 @@ Update chat history file.
 [219] CLAUDE  (2026-05-20)
 --------------------------------------------------
 Appended messages 194–219 to chat-history.txt.
+
+[220] YOU  (2026-05-20)
+--------------------------------------------------
+Please remind me how TTS is implemented in the listening exercises.
+
+[221] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Explained: Web Speech API (SpeechSynthesis), speak() function strings the 5 conversation lines with speaker names into one text block, rate 0.75, prefers female voice. User manually triggers via "Listen" button. Toggle stops/restarts. utt.onend fires render() to reset button label.
+
+[222] YOU  (2026-05-20)
+--------------------------------------------------
+On desktop the voice is always female. On iPhone (Chrome) the first speech is female but all subsequent ones switch to male. Why?
+
+[223] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Explained: Chrome on iOS uses WebKit engine (same as Safari). iOS loads voices asynchronously; after first call, getVoices() may return different set. cancel() before speak() may flush the voice cache, causing iOS to fall back to system voice (male) on subsequent calls.
+
+[224] YOU  (2026-05-20)
+--------------------------------------------------
+I use Google Chrome on iPhone, not Safari. Does that change anything?
+
+[225] CLAUDE  (2026-05-20)
+--------------------------------------------------
+No — all iOS browsers are forced to use WebKit by Apple, so Chrome on iOS has identical TTS behavior to Safari.
+
+[226] YOU  (2026-05-20)
+--------------------------------------------------
+Describe the planned fix and advise on complexity.
+
+[227] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Plan: cache preferred voice in _preferredVoice variable after first getVoices() call; use cached voice on every subsequent speak() call instead of calling getVoices() again. Low complexity, minimal risk. User approved.
+
+[228] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Implemented _preferredVoice cache. Committed and pushed.
+
+[229] YOU  (2026-05-20)
+--------------------------------------------------
+The fix made no change in user experience.
+
+[230] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Proposed second fix: remove cancel() call from speak() to prevent iOS voice flush. User approved.
+
+[231] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Removed cancel() from speak(). Committed and pushed.
+
+[232] YOU  (2026-05-20)
+--------------------------------------------------
+It did not work either. Please revert the last two iOS voice changes.
+
+[233] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Reverted both commits (git revert ce49247 --no-edit && git revert b3913d4 --no-edit). iOS voice bug remains unresolved. Speech still works; just defaults to system (male) voice after first utterance on iOS.
+
+[234] YOU  (2026-05-20)
+--------------------------------------------------
+Describe the balance between typing vs clicking across all sections.
+
+[235] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Listed all 8 sections: listen=all click, vocab=mix (2 click + 4 type + 3 click), sounds=mix (2 choose + 2 type per sound), truefalse=all click, reading=mix, writing=click (word bank), time=all type, spelling=all type.
+
+[236] YOU  (2026-05-20)
+--------------------------------------------------
+I want the time section to also include option selection, not only typing. Can you make a balanced proposal?
+
+[237] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Proposed 3 click + 2 type per session. Mixed randomly so order is unpredictable.
+
+[238] YOU  (2026-05-20)
+--------------------------------------------------
+3 click + 2 type. What order? What is the total bank size? Describe your plan.
+
+[239] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Bank: 24 clockTimes entries. Session: shuffle(clockTimes).slice(0,5); first 3 become time-choice, last 2 time-type, then shuffle again. time-choice shows 3 options (correct + 2 distractors). User approved.
+
+[240] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Added time-choice exercise type: renderTimeChoice(), handleChoice case, getCorrectDisplay case, renderExercise case. Committed and pushed.
+
+[241] YOU  (2026-05-20)
+--------------------------------------------------
+Give an overview of question counts vs bank sizes in each section.
+
+[242] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Listed all 8 sections with session count vs bank: listen 3/24 (8 conv × 3), vocab 10/54 (20 wtp + 24 sc + 10 qa), sounds 12/16, truefalse 12/20, reading 3/24 (8 pass × 3), writing 3/10, time 5/24, spelling 10/34.
+
+[243] YOU  (2026-05-20)
+--------------------------------------------------
+For each section with more than 6 questions, reduce to 6. Keep proportion of types. Describe plan.
+
+[244] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Plan: vocab 3+4+3→2+2+2 (6), sounds 2 choose+2 type per sound→1 choose+1 type per sound (6), truefalse 12→6, spelling 10→6. Time (5) and reading (3) and listen (3) already ≤6 — no change.
+
+[245] YOU  (2026-05-20)
+--------------------------------------------------
+Also double the Fill in the Blanks bank to 20. Describe full plan.
+
+[246] CLAUDE  (2026-05-20)
+--------------------------------------------------
+Added 10 new writing exercises to data.js: zebra_hippo, peter_can, carla_party, henry_birthday, hospital_help, animal_abilities, betty_languages, aris_day, lion_turtle_story, good_at_new. Combined with the 4 app.js slice reductions. User approved.
+
+[247] CLAUDE  (2026-05-23)
+--------------------------------------------------
+Implemented all changes: app.js (vocab 2+2+2, sounds slice→2 i<1, truefalse→6, spelling→6), data.js (10 new writing exercises). Committed and pushed. Updated CLAUDE.md (sections table, sounds doc, data.js doc, "where we left off"). Appended chat-history.txt messages 220–247.
