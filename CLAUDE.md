@@ -16,11 +16,19 @@ The exam covers **Jet 2, Unit 3: "Animals Are Cool"** and has 6 parts (Listening
 ```
 index.html               — shell only; loads fonts, style.css, data.js, app.js
 style.css                — all styles (~420 lines)
-data.js                  — CONFIG block + exam content trimmed to green p01–p16 + yellow p01–p03
+data.js                  — CONFIG block + exam content (green p01–p16 + yellow p01–p03 + teacher worksheets)
 app.js                   — all game logic (~1043 lines)
 data-unit3-full.js       — ARCHIVE: full unit 3 data (all pages); swap in as data.js if needed
+data-backup-2026-05-23.js— BACKUP: data.js snapshot before vocabulary expansion (2026-05-23)
 exam-material-summary.txt— detailed summary of exam material (all 10 sections)
 chat-history.txt         — human-readable log of the full first conversation session
+teacher/                 — teacher-supplied files
+  links.html             — kid-friendly page with all 10 exam prep links (Wordwall, games, videos)
+  images/                — PNG renders of the 3 teacher PDFs (via PyMuPDF at 150 DPI)
+  מבדק באנגלית 26-05-2026.txt — teacher's Hebrew note (exam structure + Wordwall links)
+  Jet 2 unit 3 Review.pdf     — review checklist with hyperlinks (used for links.html only)
+  Vocab review- Unit 3 ...pdf — 2-page vocabulary self-check worksheet (source for new vocab)
+  חזרה jet 2 Unit 3.pdf       — 2-page reading/translation worksheet (source for new vocab)
 ```
 
 No build tools, no frameworks, no npm. Pure HTML/CSS/JS.
@@ -77,7 +85,7 @@ const state = {
 | `reading` | Reading | 3 questions from 1 random passage (bank of 8) | `reading-choice`, `reading-type` |
 | `writing` | Fill in the Blanks 🧩 | 3 of 20 | `writing` |
 | `time` | What Time Is It? | 5 of 24 (3 time-choice + 2 time-type, mixed randomly) | `time-choice`, `time-type` |
-| `spelling` | Spelling ✏️ | 6 of 34 | `spelling` |
+| `spelling` | Spelling ✏️ | 6 of 77 | `spelling` |
 
 ---
 
@@ -128,23 +136,29 @@ const CONFIG = {
 ## Data (data.js)
 
 ```
-DATA.vocabulary[]        — 34 words: word, emoji, hebrew (trimmed to green p01–p16, yellow p01–p03)
-DATA.wordToPicture[]     — 20 items: word, correct emoji, 3 distractor emojis
-DATA.sentenceCompletion[]— 24 items: sentence (with ___), answer, emoji, hint (Hebrew)
-DATA.qaMatching[]        — 10 Q&A pairs: question, correct answer, 3 wrong answers
+DATA.vocabulary[]        — 77 words: word, emoji, hebrew
+                           (green p01–p16 + yellow p01–p03 + teacher worksheets)
+                           Includes: animals, feelings, actions, people, places/things,
+                           adjectives, question words (who/where/when/what/how many),
+                           function words (please/she/my/have)
+DATA.wordToPicture[]     — 56 items: word, correct emoji, 3 distractor emojis
+DATA.sentenceCompletion[]— ~71 items: sentence (with ___), answer, emoji, hint (Hebrew)
+                           Note: two items share answer "dirty" — pre-existing, very low collision risk
+DATA.qaMatching[]        — 15 Q&A pairs: question, correct answer, 3 wrong answers
 DATA.sounds[]            — 16 items (le×5, er×6, ir×5): word, blank, sound, emoji — NO ar
-DATA.trueFalse[]         — 20 items: sentence, answer (bool), scene emoji
+DATA.trueFalse[]         — 33 items: sentence, answer (bool), scene emoji
 DATA.passages[]          — 8 passages, each 5 sentences + 3 questions:
                            safari, bella, peter, safari_animals, toms_day,
-                           betty_bird, my_favourite, lion_turtle
+                           betty_bird, my_favorite, lion_turtle
                            Each has .text (5 sentences) and .questions[] (3 items, type "choice" or "type")
                            1 passage picked randomly per session; ALL 3 questions shown
-DATA.writing[]           — 20 fill-in exercises: safari_day, bella_day, peter_penguin,
+DATA.writing[]           — 24 fill-in exercises: safari_day, bella_day, peter_penguin,
                            animal_riddles, good_at, toms_day, animal_facts,
                            betty_bird, feelings, the_lion,
                            zebra_hippo, peter_can, carla_party, henry_birthday,
                            hospital_help, animal_abilities, betty_languages,
-                           aris_day, lion_turtle_story, good_at_new
+                           aris_day, lion_turtle_story, good_at_new,
+                           farm_animals, school_day, party_time, what_i_like
                            Each has .segments[] ({text} or {blank:true, answer}) and .wordBank[]
                            3 picked randomly per session
 DATA.listening[]         — 8 conversations; each has .speech (5 speaker lines) and .questions[] (3 items)
@@ -242,6 +256,8 @@ Best score per section is saved (never decremented).
 7. **Sound-type hint hardcoded 'ar'** — hint and placeholder in `renderSoundType` said "le / er / ir / ar"; fixed to derive the list dynamically from `DATA.sounds` so material changes in `data.js` flow through automatically.
 8. **Dead code in `attach()`** — leftover from auto-play removal set `listenPlayed = false` when it was already false; removed.
 9. **`handleCheckSound` missing revealed guard** — unlike `handleCheckType`/`handleCheckTime`, continued incrementing `state.attempts` after reveal; fixed by adding the same `if (state.revealed)` guard.
+10. **Duplicate emoji in sentenceCompletion** — `"I like to ___ football"` (answer: "play") used ⚽, same as the football entry. Fixed: changed to 🎮.
+11. **"favourite" / "favorite" inconsistency** — `DATA.vocabulary` used American "favorite" but sentenceCompletion, qaMatching, and passages used British "favourite". Fixed: standardized to "favorite" throughout.
 
 ---
 
@@ -270,7 +286,7 @@ The app is **complete and live**. All 8 sections are working. The most recently 
   "When you are thirsty, you eat dinner." (false) — tests vocabulary without passage memorization
 - TTS rate slowed from 0.85 → 0.75; name "Noa" → "Lisa" in bella_listen (clearer pronunciation)
 - **New Spelling section (8th)** — shows emoji + Hebrew hint, user types English word from memory;
-  10 random words from `DATA.vocabulary` per session; same retry mechanic as other type exercises
+  6 random words from `DATA.vocabulary` per session; same retry mechanic as other type exercises
 - Section icons: Sounds=🔡, Fill in the Blanks=🧩, Spelling=✏️
 - Clock section: 5 random questions per session (was 10)
 - **Listening redesigned**: bank of 8 conversations (5 speaker lines each, 3 questions each);
@@ -279,8 +295,9 @@ The app is **complete and live**. All 8 sections are working. The most recently 
   Questions designed to require actual listening — no trivially common-knowledge answers
 - **Reading expanded**: 8 passages (was 3), each 5 sentences + 3 questions;
   1 passage chosen randomly per session
-- **Writing expanded**: 10 exercises (was 5); 3 chosen randomly per session
-- Code review: 4 bugs fixed (getCorrectDisplay reading-choice, sound-type hint ar, dead code in attach, handleCheckSound revealed guard)
+- **Writing expanded**: 24 exercises total; 3 chosen randomly per session
+- Code review: 6 bugs fixed (getCorrectDisplay reading-choice, sound-type hint ar, dead code in attach,
+  handleCheckSound revealed guard, duplicate ⚽ emoji, favourite/favorite inconsistency)
 - **Vocabulary reduced**: 22 → 6 questions per session (2 word-to-pic + 2 sentence-type + 2 qa-match)
 - Vocabulary section instructions updated to cover all 3 question types (English + Hebrew)
 - **Typed input UX**: wrong answer text preserved in input after failed attempt; text is selected on re-focus so student can edit or retype
@@ -288,7 +305,16 @@ The app is **complete and live**. All 8 sections are working. The most recently 
 - Table emoji fixed in sounds section (🪑 → 🍽️)
 - **All sections capped at 6 questions per session**: vocab 2+2+2, sounds 1 choose+1 type per sound (6 total), truefalse 6, spelling 6
 - **Time section now mixed**: 3 time-choice (click) + 2 time-type (type) per session, randomly ordered
-- **Writing bank doubled**: 20 exercises total (was 10); session draw stays at 3
+- **Vocabulary expanded**: 34 → 77 words using teacher worksheets as source
+  (new animals: horse/sheep/duck/cow; actions: clean/play/ride/swim/dance/bring/tell/have;
+  people: grandma/children/doctor; places/things: school/farm/beach/park/sea/home/bike/floor/
+  music/food/cake/shoes/birthday/party/morning/lunch/football/popcorn/address/street;
+  adjectives: good/favorite; function: please/she/my; question words: who/where/when/what/how many)
+- wordToPicture expanded 20 → 56, sentenceCompletion 24 → ~71, qaMatching 10 → 15,
+  trueFalse 20 → 33, writing 20 → 24 (4 new exercises using new vocabulary)
+- `data-backup-2026-05-23.js` created before expansion
+- `teacher/links.html` created: kid-friendly page with all 10 exam prep links
+- Teacher PDFs rendered to PNG images in `teacher/images/`
 
 **No outstanding bugs or pending tasks.** Waiting for next user review feedback.
 
@@ -296,9 +322,12 @@ The app is **complete and live**. All 8 sections are working. The most recently 
 
 ## Source material
 
-- `מבדק באנגלית 26-05-2026.txt` — teacher's Hebrew note (exam structure + Wordwall links)
-- Green book: "Jet 2 Learn and Practice" (scanned, read via PyMuPDF → PNG images)
-- Yellow book: "Jet 2 Reading and More" (scanned, read via PyMuPDF → PNG images)
+- `teacher/מבדק באנגלית 26-05-2026.txt` — teacher's Hebrew note (exam structure + Wordwall links)
+- Green book: "Jet 2 Learn and Practice" (scanned, read via PyMuPDF → PNG images), pages p01–p16
+- Yellow book: "Jet 2 Reading and More" (scanned, read via PyMuPDF → PNG images), pages p01–p03
+- `teacher/Vocab review- Unit 3 ...pdf` — 2-page vocabulary self-check worksheet (primary source for vocabulary expansion)
+- `teacher/חזרה jet 2 Unit 3.pdf` — 2-page reading/translation worksheet (secondary source for vocabulary expansion)
+- `teacher/Jet 2 unit 3 Review.pdf` — teacher review checklist; used **only** for extracting links (not for vocabulary)
 - Three Wordwall vocabulary links (fetched at project start)
 
 All exam content is documented in `exam-material-summary.txt`.
