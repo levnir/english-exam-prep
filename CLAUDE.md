@@ -20,7 +20,6 @@ data.js                  — CONFIG block + exam content (green p01–p16 + yell
 app.js                   — all game logic (~1043 lines)
 data-unit3-full.js       — ARCHIVE: full unit 3 data (all pages); swap in as data.js if needed
 data-backup-2026-05-23.js— BACKUP: data.js snapshot before vocabulary expansion (2026-05-23)
-exam-material-summary.txt— detailed summary of exam material (all 10 sections)
 chat-history.txt         — human-readable log of the full first conversation session
 exam-material/                 — teacher-supplied files (excluded from git via .gitignore)
   links.html             — kid-friendly page with all 10 exam prep links (Wordwall, games, videos)
@@ -333,4 +332,4 @@ The app is **complete and live**. All 8 sections are working. The most recently 
 - `exam-material/Jet 2 unit 3 Review.pdf` — teacher review checklist; used **only** for extracting links (not for vocabulary)
 - Three Wordwall vocabulary links (fetched at project start)
 
-All exam content is documented in `exam-material-summary.txt`.
+All exam content is documented in this CLAUDE.md file.
