@@ -1,7 +1,7 @@
 // ============================================================
 // data.js — Abigail's English Exam Prep
 // Jet 2, Unit 3: Animals Are Cool
-// Scope: Green book p01–p16, Yellow book p01–p03, teacher worksheets
+// Scope: Green book p01–p16, Yellow book p01–p03
 // ============================================================
 
 // ── CONFIG — change this for a new exam ──────────────────────
@@ -64,58 +64,6 @@ const DATA = {
     { word: "behind",   emoji: "↩️", hebrew: "מאחורי" },
     { word: "with",     emoji: "🤝", hebrew: "עם" },
     { word: "this",     emoji: "👆", hebrew: "זה / זאת" },
-    // New Animals (teacher worksheets)
-    { word: "horse",    emoji: "🐴", hebrew: "סוס" },
-    { word: "sheep",    emoji: "🐑", hebrew: "כבש" },
-    { word: "duck",     emoji: "🦆", hebrew: "ברווז" },
-    { word: "cow",      emoji: "🐄", hebrew: "פרה" },
-    // More People (teacher worksheets)
-    { word: "grandma",  emoji: "👵", hebrew: "סבתא" },
-    { word: "children", emoji: "🧒", hebrew: "ילדים" },
-    { word: "doctor",   emoji: "🩺", hebrew: "רופא/ה" },
-    // More Actions (teacher worksheets)
-    { word: "clean",    emoji: "🧽", hebrew: "לנקות" },
-    { word: "play",     emoji: "🎮", hebrew: "לשחק" },
-    { word: "ride",     emoji: "🏇", hebrew: "לרכב" },
-    { word: "swim",     emoji: "🏊", hebrew: "לשחות" },
-    { word: "dance",    emoji: "💃", hebrew: "לרקוד" },
-    { word: "bring",    emoji: "🎁", hebrew: "להביא" },
-    { word: "tell",     emoji: "💬", hebrew: "לספר" },
-    { word: "have",     emoji: "🤲", hebrew: "יש" },
-    // More Places / Things (teacher worksheets)
-    { word: "school",   emoji: "🏫", hebrew: "בית ספר" },
-    { word: "farm",     emoji: "🌾", hebrew: "חווה" },
-    { word: "beach",    emoji: "🏖️", hebrew: "חוף ים" },
-    { word: "park",     emoji: "🌳", hebrew: "פארק" },
-    { word: "sea",      emoji: "🌊", hebrew: "ים" },
-    { word: "home",     emoji: "🏠", hebrew: "בית" },
-    { word: "bike",     emoji: "🚲", hebrew: "אופניים" },
-    { word: "floor",    emoji: "🪵", hebrew: "רצפה" },
-    { word: "music",    emoji: "🎵", hebrew: "מוזיקה" },
-    { word: "food",     emoji: "🍔", hebrew: "אוכל" },
-    { word: "cake",     emoji: "🎂", hebrew: "עוגה" },
-    { word: "shoes",    emoji: "👟", hebrew: "נעליים" },
-    { word: "birthday", emoji: "🎈", hebrew: "יום הולדת" },
-    { word: "party",    emoji: "🎉", hebrew: "מסיבה" },
-    { word: "morning",  emoji: "🌅", hebrew: "בוקר" },
-    { word: "lunch",    emoji: "🥪", hebrew: "ארוחת צהריים" },
-    { word: "football", emoji: "⚽", hebrew: "כדורגל" },
-    { word: "popcorn",  emoji: "🍿", hebrew: "פופקורן" },
-    { word: "address",  emoji: "📍", hebrew: "כתובת" },
-    { word: "street",   emoji: "🛣️", hebrew: "רחוב" },
-    // Adjectives / descriptors (teacher worksheets)
-    { word: "favorite", emoji: "💖", hebrew: "אהוב/ה" },
-    { word: "good",     emoji: "👍", hebrew: "טוב/ה" },
-    // Function words (teacher worksheets)
-    { word: "please",   emoji: "🙏", hebrew: "בבקשה" },
-    { word: "she",      emoji: "👩‍🦰", hebrew: "היא" },
-    { word: "my",       emoji: "🫵", hebrew: "שלי" },
-    // Question words (teacher worksheets)
-    { word: "who",      emoji: "👤", hebrew: "מי" },
-    { word: "where",    emoji: "🗺️", hebrew: "איפה" },
-    { word: "when",     emoji: "📅", hebrew: "מתי" },
-    { word: "what",     emoji: "💭", hebrew: "מה" },
-    { word: "how many", emoji: "🔢", hebrew: "כמה" },
   ],
 
   // ----------------------------------------------------------
@@ -141,50 +89,7 @@ const DATA = {
     { word: "listen",   correct: "👂", distractors: ["👀", "🤝", "💪"] },
     { word: "watch",    correct: "👀", distractors: ["👂", "🤝", "💪"] },
     { word: "smile",    correct: "😊", distractors: ["😎", "😴", "😀"] },
-    { word: "woman",    correct: "👩",  distractors: ["👫", "💧", "🎩"] },
-    // New Animals
-    { word: "horse",    correct: "🐴",  distractors: ["🐑", "🐄", "🦆"] },
-    { word: "sheep",    correct: "🐑",  distractors: ["🐴", "🦆", "🐄"] },
-    { word: "duck",     correct: "🦆",  distractors: ["🐑", "🐄", "🐴"] },
-    { word: "cow",      correct: "🐄",  distractors: ["🐴", "🦆", "🐑"] },
-    // More People
-    { word: "grandma",  correct: "👵",  distractors: ["🩺", "🧒", "👩"] },
-    { word: "children", correct: "🧒",  distractors: ["👵", "🩺", "👩"] },
-    { word: "doctor",   correct: "🩺",  distractors: ["👵", "🧒", "👩"] },
-    // More Actions
-    { word: "clean",    correct: "🧽",  distractors: ["🎮", "🏇", "🎁"] },
-    { word: "play",     correct: "🎮",  distractors: ["🧽", "💃", "🏇"] },
-    { word: "ride",     correct: "🏇",  distractors: ["🚲", "🎮", "🧽"] },
-    { word: "swim",     correct: "🏊",  distractors: ["💃", "🎮", "🏇"] },
-    { word: "dance",    correct: "💃",  distractors: ["🏊", "🎮", "🏇"] },
-    { word: "bring",    correct: "🎁",  distractors: ["💬", "🙏", "🎮"] },
-    { word: "tell",     correct: "💬",  distractors: ["🎁", "🙏", "👍"] },
-    // More Places
-    { word: "school",   correct: "🏫",  distractors: ["🏠", "🌾", "🌳"] },
-    { word: "farm",     correct: "🌾",  distractors: ["🏫", "🌳", "🏖️"] },
-    { word: "beach",    correct: "🏖️", distractors: ["🌊", "🌳", "🏠"] },
-    { word: "park",     correct: "🌳",  distractors: ["🏖️", "🏫", "🌾"] },
-    { word: "sea",      correct: "🌊",  distractors: ["🏖️", "💧", "🌳"] },
-    { word: "home",     correct: "🏠",  distractors: ["🏫", "🌾", "🌳"] },
-    { word: "bike",     correct: "🚲",  distractors: ["🏇", "🎮", "⚽"] },
-    // Food / Party
-    { word: "food",     correct: "🍔",  distractors: ["🎂", "🥪", "🍿"] },
-    { word: "cake",     correct: "🎂",  distractors: ["🍔", "🥪", "🍿"] },
-    { word: "lunch",    correct: "🥪",  distractors: ["🍔", "🎂", "🍿"] },
-    { word: "popcorn",  correct: "🍿",  distractors: ["🍔", "🎂", "🥪"] },
-    { word: "birthday", correct: "🎈",  distractors: ["🎉", "🎂", "🎵"] },
-    { word: "party",    correct: "🎉",  distractors: ["🎈", "🎂", "🎵"] },
-    { word: "football", correct: "⚽",  distractors: ["🎮", "🚲", "🏇"] },
-    // Things
-    { word: "music",    correct: "🎵",  distractors: ["👟", "📍", "💬"] },
-    { word: "shoes",    correct: "👟",  distractors: ["🎵", "🎂", "🍔"] },
-    { word: "morning",  correct: "🌅",  distractors: ["⏰", "📅", "🌾"] },
-    { word: "street",   correct: "🛣️", distractors: ["📍", "🏠", "🏫"] },
-    { word: "address",  correct: "📍",  distractors: ["🛣️", "🏠", "🏫"] },
-    // Adjectives / function
-    { word: "good",     correct: "👍",  distractors: ["💖", "🙏", "💬"] },
-    { word: "favorite", correct: "💖",  distractors: ["👍", "🙏", "💬"] },
-    { word: "please",   correct: "🙏",  distractors: ["💬", "👍", "💖"] },
+    { word: "woman",    correct: "👩", distractors: ["👫", "💧", "🎩"] },
   ],
 
   // ----------------------------------------------------------
@@ -219,57 +124,6 @@ const DATA = {
     { sentence: "I have a ___ dog.",                             answer: "great",    emoji: "⭐",    hint: "נהדר/ת" },
     { sentence: "The ___ can swim and do tricks.",               answer: "penguin",  emoji: "🐧",    hint: "פינגווין" },
     { sentence: "What are you good at? I'm good at ___.",        answer: "tricks",   emoji: "🎩",    hint: "פעלולים" },
-    // New Animals
-    { sentence: "I ride a ___ on the farm.",                      answer: "horse",    emoji: "🐴",    hint: "סוס" },
-    { sentence: "The ___ says moo and lives on a farm.",          answer: "cow",      emoji: "🐄",    hint: "פרה" },
-    { sentence: "A ___ can swim. It says quack.",                 answer: "duck",     emoji: "🦆",    hint: "ברווז" },
-    { sentence: "The ___ has white wool and lives on a farm.",    answer: "sheep",    emoji: "🐑",    hint: "כבש" },
-    // More People
-    { sentence: "My mother's mother is my ___.",                  answer: "grandma",  emoji: "👵",    hint: "סבתא" },
-    { sentence: "Boys and girls are ___.",                        answer: "children", emoji: "🧒",    hint: "ילדים" },
-    { sentence: "The ___ helps sick people at the hospital.",     answer: "doctor",   emoji: "🩺",    hint: "רופא/ה" },
-    // More Actions
-    { sentence: "Let's ___ the dirty floor!",                     answer: "clean",    emoji: "🧽",    hint: "לנקות" },
-    { sentence: "I like to ___ football at school.",              answer: "play",     emoji: "⚽",    hint: "לשחק" },
-    { sentence: "Can you ___ a horse?",                           answer: "ride",     emoji: "🏇",    hint: "לרכב" },
-    { sentence: "Fish ___ in the sea.",                           answer: "swim",     emoji: "🌊",    hint: "לשחות" },
-    { sentence: "I like to ___ to music.",                        answer: "dance",    emoji: "💃",    hint: "לרקוד" },
-    { sentence: "Please ___ a swimsuit to the party.",            answer: "bring",    emoji: "🎁",    hint: "להביא" },
-    { sentence: "Please ___ me your name and address.",           answer: "tell",     emoji: "💬",    hint: "לספר" },
-    { sentence: "I ___ a big dog. His name is Rex.",              answer: "have",     emoji: "🤲",    hint: "יש לי" },
-    // More Places / Things
-    { sentence: "I go to ___ to learn and have fun.",             answer: "school",   emoji: "🏫",    hint: "בית ספר" },
-    { sentence: "The horses and sheep live on the ___.",          answer: "farm",     emoji: "🌾",    hint: "חווה" },
-    { sentence: "It is hot at the ___. I swim in the sea.",       answer: "beach",    emoji: "🏖️",   hint: "חוף ים" },
-    { sentence: "I ride my bike in the ___.",                     answer: "park",     emoji: "🌳",    hint: "פארק" },
-    { sentence: "Fish and turtles live in the ___.",              answer: "sea",      emoji: "🌊",    hint: "ים" },
-    { sentence: "At three o'clock, I walk ___.",                  answer: "home",     emoji: "🏠",    hint: "הביתה" },
-    { sentence: "I ride my ___ to school every morning.",         answer: "bike",     emoji: "🚲",    hint: "אופניים" },
-    { sentence: "The ___ is dirty. Let's clean it.",              answer: "floor",    emoji: "🪵",    hint: "רצפה" },
-    { sentence: "I listen to ___ every morning.",                 answer: "music",    emoji: "🎵",    hint: "מוזיקה" },
-    { sentence: "I love ___. I eat sandwiches and pizza.",        answer: "food",     emoji: "🍔",    hint: "אוכל" },
-    { sentence: "I love birthday ___! It is sweet.",              answer: "cake",     emoji: "🎂",    hint: "עוגה" },
-    { sentence: "Please bring long pants and ___ to the party.",  answer: "shoes",    emoji: "👟",    hint: "נעליים" },
-    { sentence: "It is my ___! I am ten years old today.",        answer: "birthday", emoji: "🎈",    hint: "יום הולדת" },
-    { sentence: "Come to my ___! There will be cake and music.",  answer: "party",    emoji: "🎉",    hint: "מסיבה" },
-    { sentence: "I wake up in the ___.",                          answer: "morning",  emoji: "🌅",    hint: "בוקר" },
-    { sentence: "I eat ___ at one o'clock. It is not dinner.",    answer: "lunch",    emoji: "🥪",    hint: "ארוחת צהריים" },
-    { sentence: "I like to play ___. I kick the ball.",           answer: "football", emoji: "⚽",    hint: "כדורגל" },
-    { sentence: "I love ___. It is crunchy and tasty.",           answer: "popcorn",  emoji: "🍿",    hint: "פופקורן" },
-    { sentence: "Please tell me your ___. What street do you live on?", answer: "address", emoji: "📍", hint: "כתובת" },
-    { sentence: "I live on Carmel ___.",                          answer: "street",   emoji: "🛣️",   hint: "רחוב" },
-    // Adjectives / function
-    { sentence: "The horse is my ___ animal.",                    answer: "favorite", emoji: "💖",    hint: "אהוב/ה" },
-    { sentence: "I am ___ at swimming and tricks.",               answer: "good",     emoji: "👍",    hint: "טוב/ה" },
-    { sentence: "___, tell me your name.",                        answer: "please",   emoji: "🙏",    hint: "בבקשה" },
-    { sentence: "My dog is great. ___ can swim!",                 answer: "she",      emoji: "👩‍🦰", hint: "היא" },
-    { sentence: "___ favourite animal is the penguin.",           answer: "my",       emoji: "🫵",    hint: "שלי" },
-    // Question words
-    { sentence: "___ is your favourite animal?",                  answer: "what",     emoji: "💭",    hint: "מה" },
-    { sentence: "___ is the party? At the beach!",                answer: "where",    emoji: "🗺️",   hint: "איפה" },
-    { sentence: "___ is your birthday? It is in May.",            answer: "when",     emoji: "📅",    hint: "מתי" },
-    { sentence: "___ is at the door? It is my grandma!",         answer: "who",      emoji: "👤",    hint: "מי" },
-    { sentence: "___ animals do you have?",                       answer: "how many", emoji: "🔢",    hint: "כמה" },
   ],
 
   // ----------------------------------------------------------
@@ -326,31 +180,6 @@ const DATA = {
       question: "Linda is tired.",
       correct: "Go to sleep.",
       wrong: ["Have a bath.", "Eat a sandwich.", "Drink water."]
-    },
-    {
-      question: "Where is the party?",
-      correct: "It's at the beach.",
-      wrong: ["It's at school.", "It's at the farm.", "It's at the park."]
-    },
-    {
-      question: "What can I bring to the party?",
-      correct: "Bring a swimsuit.",
-      wrong: ["Bring a lion.", "Bring a doctor.", "Bring a horse."]
-    },
-    {
-      question: "What is your favourite animal?",
-      correct: "My favourite is the horse.",
-      wrong: ["I am good at tricks.", "It's half past three.", "I have a birthday party."]
-    },
-    {
-      question: "When is the party?",
-      correct: "It's on Friday at four o'clock.",
-      wrong: ["It's at the beach.", "Bring a swimsuit.", "My name is Tom."]
-    },
-    {
-      question: "Please tell me your address.",
-      correct: "It's 5 Carmel Street.",
-      wrong: ["It's on Friday.", "Bring a swimsuit.", "I'm good at swimming."]
     },
   ],
 
@@ -410,20 +239,6 @@ const DATA = {
     { sentence: "Peter Penguin can fly.",                         answer: false, scene: "🐧" },
     { sentence: "Peter Penguin is good at swimming.",             answer: true,  scene: "🐧🌊" },
     { sentence: "Betty Bird can sing.",                           answer: true,  scene: "🐦🎵" },
-    // From teacher worksheets
-    { sentence: "Horses live on a farm.",                         answer: true,  scene: "🐴🌾" },
-    { sentence: "Ducks can swim in water.",                       answer: true,  scene: "🦆💧" },
-    { sentence: "Cows can fly.",                                  answer: false, scene: "🐄" },
-    { sentence: "Sheep are farm animals.",                        answer: true,  scene: "🐑🌾" },
-    { sentence: "You eat lunch in the morning.",                  answer: false, scene: "🥪🌅" },
-    { sentence: "A doctor helps sick people.",                    answer: true,  scene: "🩺" },
-    { sentence: "Children go to school to learn.",                answer: true,  scene: "🧒🏫" },
-    { sentence: "You play football with your hands.",             answer: false, scene: "⚽" },
-    { sentence: "A birthday party has cake.",                     answer: true,  scene: "🎂🎉" },
-    { sentence: "You can ride a horse on a farm.",                answer: true,  scene: "🐴🌾" },
-    { sentence: "Fish live on a farm.",                           answer: false, scene: "🐟🌾" },
-    { sentence: "You listen to music with your ears.",            answer: true,  scene: "🎵👂" },
-    { sentence: "You ride a bike in the sea.",                    answer: false, scene: "🚲🌊" },
   ],
 
   // ----------------------------------------------------------
@@ -1026,82 +841,6 @@ const DATA = {
         { text: "!" },
       ],
       wordBank: ["swimming", "tricks", "sing", "watch", "great"],
-    },
-    {
-      id: "farm_animals",
-      title: "Farm Animals",
-      emoji: "🌾",
-      segments: [
-        { text: "On the " },
-        { blank: true, answer: "farm" },
-        { text: " there are many animals. The " },
-        { blank: true, answer: "horse" },
-        { text: " is big and fast. The " },
-        { blank: true, answer: "cow" },
-        { text: " gives us milk. The " },
-        { blank: true, answer: "duck" },
-        { text: " can swim. The " },
-        { blank: true, answer: "sheep" },
-        { text: " has white wool." },
-      ],
-      wordBank: ["farm", "horse", "cow", "duck", "sheep"],
-    },
-    {
-      id: "school_day",
-      title: "My School Day",
-      emoji: "🏫",
-      segments: [
-        { text: "I wake up in the " },
-        { blank: true, answer: "morning" },
-        { text: ". I walk to " },
-        { blank: true, answer: "school" },
-        { text: ". At one o'clock, I eat " },
-        { blank: true, answer: "lunch" },
-        { text: ". I " },
-        { blank: true, answer: "play" },
-        { text: " football with my friends. At three o'clock, I walk " },
-        { blank: true, answer: "home" },
-        { text: "." },
-      ],
-      wordBank: ["morning", "school", "lunch", "play", "home"],
-    },
-    {
-      id: "party_time",
-      title: "Party Time!",
-      emoji: "🎉",
-      segments: [
-        { text: "It is my " },
-        { blank: true, answer: "birthday" },
-        { text: "! Come to my " },
-        { blank: true, answer: "party" },
-        { text: "! It is at the " },
-        { blank: true, answer: "beach" },
-        { text: ". Please " },
-        { blank: true, answer: "bring" },
-        { text: " a swimsuit. We will eat " },
-        { blank: true, answer: "cake" },
-        { text: "!" },
-      ],
-      wordBank: ["birthday", "party", "beach", "bring", "cake"],
-    },
-    {
-      id: "what_i_like",
-      title: "What I Like",
-      emoji: "💖",
-      segments: [
-        { text: "My " },
-        { blank: true, answer: "favorite" },
-        { text: " animal is the horse. I am " },
-        { blank: true, answer: "good" },
-        { text: " at riding horses. I also love " },
-        { blank: true, answer: "music" },
-        { text: ". I like to " },
-        { blank: true, answer: "dance" },
-        { text: ". Animals are " },
-        { blank: true, answer: "great" },
-        { text: "!" },
-      ],
-      wordBank: ["favorite", "good", "music", "dance", "great"],
     },
   ],
 
