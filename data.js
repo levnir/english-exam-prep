@@ -230,7 +230,7 @@ const DATA = {
     { sentence: "The ___ helps sick people at the hospital.",     answer: "doctor",   emoji: "🩺",    hint: "רופא/ה" },
     // More Actions
     { sentence: "Let's ___ the dirty floor!",                     answer: "clean",    emoji: "🧽",    hint: "לנקות" },
-    { sentence: "I like to ___ football at school.",              answer: "play",     emoji: "⚽",    hint: "לשחק" },
+    { sentence: "I like to ___ football at school.",              answer: "play",     emoji: "🎮",    hint: "לשחק" },
     { sentence: "Can you ___ a horse?",                           answer: "ride",     emoji: "🏇",    hint: "לרכב" },
     { sentence: "Fish ___ in the sea.",                           answer: "swim",     emoji: "🌊",    hint: "לשחות" },
     { sentence: "I like to ___ to music.",                        answer: "dance",    emoji: "💃",    hint: "לרקוד" },
@@ -263,9 +263,9 @@ const DATA = {
     { sentence: "I am ___ at swimming and tricks.",               answer: "good",     emoji: "👍",    hint: "טוב/ה" },
     { sentence: "___, tell me your name.",                        answer: "please",   emoji: "🙏",    hint: "בבקשה" },
     { sentence: "My dog is great. ___ can swim!",                 answer: "she",      emoji: "👩‍🦰", hint: "היא" },
-    { sentence: "___ favourite animal is the penguin.",           answer: "my",       emoji: "🫵",    hint: "שלי" },
+    { sentence: "___ favorite animal is the penguin.",            answer: "my",       emoji: "🫵",    hint: "שלי" },
     // Question words
-    { sentence: "___ is your favourite animal?",                  answer: "what",     emoji: "💭",    hint: "מה" },
+    { sentence: "___ is your favorite animal?",                   answer: "what",     emoji: "💭",    hint: "מה" },
     { sentence: "___ is the party? At the beach!",                answer: "where",    emoji: "🗺️",   hint: "איפה" },
     { sentence: "___ is your birthday? It is in May.",            answer: "when",     emoji: "📅",    hint: "מתי" },
     { sentence: "___ is at the door? It is my grandma!",         answer: "who",      emoji: "👤",    hint: "מי" },
@@ -338,8 +338,8 @@ const DATA = {
       wrong: ["Bring a lion.", "Bring a doctor.", "Bring a horse."]
     },
     {
-      question: "What is your favourite animal?",
-      correct: "My favourite is the horse.",
+      question: "What is your favorite animal?",
+      correct: "My favorite is the horse.",
       wrong: ["I am good at tricks.", "It's half past three.", "I have a birthday party."]
     },
     {
@@ -588,14 +588,14 @@ const DATA = {
       ]
     },
     {
-      id: "my_favourite",
-      title: "My Favourite Animal",
+      id: "my_favorite",
+      title: "My Favorite Animal",
       emoji: "🐧",
       color: "#74B9FF",
-      text: "My name is Dana and my favourite animal is the penguin.\nA penguin is a bird, but it cannot fly or sing.\nA penguin is good at swimming.\nIt can do tricks too.\nI love penguins!",
+      text: "My name is Dana and my favorite animal is the penguin.\nA penguin is a bird, but it cannot fly or sing.\nA penguin is good at swimming.\nIt can do tricks too.\nI love penguins!",
       questions: [
         {
-          q: "Write one word: Dana's favourite animal is the ___.",
+          q: "Write one word: Dana's favorite animal is the ___.",
           type: "type",
           answer: "penguin"
         },
