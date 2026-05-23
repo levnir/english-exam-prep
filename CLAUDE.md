@@ -22,13 +22,16 @@ data-unit3-full.js       — ARCHIVE: full unit 3 data (all pages); swap in as d
 data-backup-2026-05-23.js— BACKUP: data.js snapshot before vocabulary expansion (2026-05-23)
 exam-material-summary.txt— detailed summary of exam material (all 10 sections)
 chat-history.txt         — human-readable log of the full first conversation session
-teacher/                 — teacher-supplied files
+teacher/                 — teacher-supplied files (excluded from git via .gitignore)
   links.html             — kid-friendly page with all 10 exam prep links (Wordwall, games, videos)
   images/                — PNG renders of the 3 teacher PDFs (via PyMuPDF at 150 DPI)
+  pdf_images/            — additional PDF renders
   מבדק באנגלית 26-05-2026.txt — teacher's Hebrew note (exam structure + Wordwall links)
   Jet 2 unit 3 Review.pdf     — review checklist with hyperlinks (used for links.html only)
   Vocab review- Unit 3 ...pdf — 2-page vocabulary self-check worksheet (source for new vocab)
   חזרה jet 2 Unit 3.pdf       — 2-page reading/translation worksheet (source for new vocab)
+  2026-05-18 06-55.pdf        — scanned book pages (green book)
+  2026-05-18 07-17.pdf        — scanned book pages (yellow book)
 ```
 
 No build tools, no frameworks, no npm. Pure HTML/CSS/JS.
