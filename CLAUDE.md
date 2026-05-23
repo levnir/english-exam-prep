@@ -20,7 +20,6 @@ data.js                  — CONFIG block + exam content (green p01–p16 + yell
 app.js                   — all game logic (~1043 lines)
 data-unit3-full.js       — ARCHIVE: full unit 3 data (all pages); swap in as data.js if needed
 data-backup-2026-05-23.js— BACKUP: data.js snapshot before vocabulary expansion (2026-05-23)
-chat-history.txt         — human-readable log of the full first conversation session
 exam-material/                 — teacher-supplied files (excluded from git via .gitignore)
   links.html             — kid-friendly page with all 10 exam prep links (Wordwall, games, videos)
   images/                — PNG renders of the 3 teacher PDFs (via PyMuPDF at 150 DPI)
