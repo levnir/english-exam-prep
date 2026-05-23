@@ -229,20 +229,20 @@ function buildExercises(sectionId) {
     }
 
     case 'vocab': {
-      const wtp = shuffle(DATA.wordToPicture).slice(0, 3).map(item => ({
+      const wtp = shuffle(DATA.wordToPicture).slice(0, 2).map(item => ({
         type: 'word-to-picture',
         word: item.word,
         options: shuffle([item.correct, ...item.distractors]),
         correct: item.correct,
       }));
-      const sc = shuffle(DATA.sentenceCompletion).slice(0, 4).map(item => ({
+      const sc = shuffle(DATA.sentenceCompletion).slice(0, 2).map(item => ({
         type: 'sentence-type',
         sentence: item.sentence,
         answer: item.answer,
         emoji: item.emoji,
         hint: item.hint,
       }));
-      const qa = shuffle(DATA.qaMatching).slice(0, 3).map(item => ({
+      const qa = shuffle(DATA.qaMatching).slice(0, 2).map(item => ({
         type: 'qa-match',
         question: item.question,
         correct: item.correct,
@@ -257,9 +257,9 @@ function buildExercises(sectionId) {
       DATA.sounds.forEach(s => bySound[s.sound].push(s));
       let exs = [];
       for (const snd of soundList) {
-        const items = shuffle(bySound[snd]).slice(0, 4);
+        const items = shuffle(bySound[snd]).slice(0, 2);
         items.forEach((item, i) => {
-          if (i < 2) {
+          if (i < 1) {
             exs.push({ type: 'sound-choose', ...item,
               options: shuffle([...soundList]) });
           } else {
@@ -271,7 +271,7 @@ function buildExercises(sectionId) {
     }
 
     case 'truefalse':
-      return shuffle(DATA.trueFalse).slice(0, 12).map(item => ({
+      return shuffle(DATA.trueFalse).slice(0, 6).map(item => ({
         type: 'truefalse', ...item
       }));
 
@@ -303,7 +303,7 @@ function buildExercises(sectionId) {
     }
 
     case 'spelling':
-      return shuffle(DATA.vocabulary).slice(0, 10).map(item => ({
+      return shuffle(DATA.vocabulary).slice(0, 6).map(item => ({
         type: 'spelling', ...item, answer: item.word
       }));
 
