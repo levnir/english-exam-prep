@@ -143,7 +143,6 @@ function clockSVG(h, m) {
 
 // ── SOUND EFFECTS ────────────────────────────────────────────
 let _audioCtx = null;
-let _preferredVoice = null;
 function getAudioCtx() {
   if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return _audioCtx;
@@ -206,13 +205,10 @@ function speak(text) {
   utt.lang = 'en-US';
   utt.rate = 0.75;
   // prefer a female English voice if available
-  if (!_preferredVoice) {
-    const voices = window.speechSynthesis.getVoices();
-    _preferredVoice = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'))
-                   || voices.find(v => v.lang.startsWith('en-'))
-                   || null;
-  }
-  if (_preferredVoice) utt.voice = _preferredVoice;
+  const voices = window.speechSynthesis.getVoices();
+  const en = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'))
+          || voices.find(v => v.lang.startsWith('en-'));
+  if (en) utt.voice = en;
   utt.onend = () => { if (state.screen === 'exercise') render(); };
   window.speechSynthesis.speak(utt);
 }
