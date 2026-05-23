@@ -289,10 +289,18 @@ function buildExercises(sectionId) {
     case 'writing':
       return shuffle(DATA.writing).slice(0, 3).map(ex => ({ type: 'writing', ...ex, wordBank: shuffle([...ex.wordBank]) }));
 
-    case 'time':
-      return shuffle(DATA.clockTimes).slice(0, 5).map(item => ({
-        type: 'time-type', ...item
-      }));
+    case 'time': {
+      const times = shuffle(DATA.clockTimes).slice(0, 5);
+      const exs = times.map((item, i) => {
+        if (i < 3) {
+          const distractors = shuffle(DATA.clockTimes.filter(t => t.phrase !== item.phrase)).slice(0, 2);
+          const options = shuffle([item.phrase, ...distractors.map(t => t.phrase)]);
+          return { type: 'time-choice', ...item, options, answer: options.indexOf(item.phrase) };
+        }
+        return { type: 'time-type', ...item };
+      });
+      return shuffle(exs);
+    }
 
     case 'spelling':
       return shuffle(DATA.vocabulary).slice(0, 10).map(item => ({
@@ -370,6 +378,7 @@ function renderExercise() {
     case 'reading-choice': body = renderReadingChoice(ex); break;
     case 'reading-type': body = renderReadingType(ex); break;
     case 'writing':      body = renderWriting(ex);     break;
+    case 'time-choice':  body = renderTimeChoice(ex);  break;
     case 'time-type':    body = renderTimeType(ex);    break;
     case 'spelling':     body = renderSpelling(ex);    break;
     default: body = '<p>Loading...</p>';
@@ -617,6 +626,20 @@ function renderWriting(ex) {
     <div style="text-align:center;">${checkBtn}</div>`;
 }
 
+function renderTimeChoice(ex) {
+  const optBtns = ex.options.map((opt, i) => {
+    const { cls, disabled } = optState(i, i === ex.answer);
+    return `<button class="opt-btn ${cls}" data-action="choice"
+      data-idx="${i}" ${disabled ? 'disabled' : ''}>${opt}</button>`;
+  }).join('');
+
+  return `
+    <div class="ex-card">
+      <div class="clock-wrap">${clockSVG(ex.h, ex.m)}</div>
+    </div>
+    <div class="options-grid single-col">${optBtns}</div>`;
+}
+
 function renderTimeType(ex) {
   const isOclock = ex.m === 0;
   const hint = isOclock
@@ -726,7 +749,7 @@ function getCorrectDisplay(ex) {
   if (ex.type === 'sound-type' || ex.type === 'sound-choose') return `${ex.blank.replace('__', `[${ex.sound}]`)}  →  ${ex.word}`;
   if (ex.type === 'qa-match')    return ex.correct;
   if (ex.type === 'truefalse')   return ex.answer ? '✅ True / נכון' : '❌ False / לא נכון';
-  if (ex.type === 'time-type')   return ex.phrase;
+  if (ex.type === 'time-type' || ex.type === 'time-choice') return ex.phrase;
   if (ex.type === 'word-to-picture') return ex.correct;
   if (ex.type === 'listen' || ex.type === 'reading-choice') return ex.options[ex.answer];
   return '';
@@ -860,6 +883,7 @@ function handleChoice(idx, val) {
   else if (ex.type === 'listen')       isCorrect = (idx === ex.answer);
   else if (ex.type === 'sound-choose') isCorrect = (val === ex.sound);
   else if (ex.type === 'reading-choice') isCorrect = (idx === ex.answer);
+  else if (ex.type === 'time-choice')    isCorrect = (idx === ex.answer);
   else if (ex.type === 'truefalse')    isCorrect = (val === ex.answer);
 
   if (isCorrect) {
