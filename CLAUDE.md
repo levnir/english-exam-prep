@@ -2,8 +2,9 @@
 
 ## Project overview
 
-Interactive web app to help Abigail (4th grade, Israel) prepare for her English exam on **May 26, 2026**.
-The exam covers **Jet 2, Unit 3: "Animals Are Cool"** and has 6 parts (Listening, Vocabulary, Sounds, Reading/True-False, Reading Comprehension, Writing/Fill-in-Blanks).
+Interactive web app built to help Abigail (4th grade, Israel) prepare for her English exam on **May 26, 2026** (now past).
+The exam covered **Jet 2, Unit 3: "Animals Are Cool"** and had 6 parts (Listening, Vocabulary, Sounds, Reading/True-False, Reading Comprehension, Writing/Fill-in-Blanks).
+The app is complete and may be reused for future exams by updating the CONFIG block in `data.js`.
 
 **Live URL:** https://levnir.github.io/english-exam-prep/
 **GitHub:** public repo, username `levnir`, repo `english-exam-prep`
@@ -264,7 +265,7 @@ Best score per section is saved (never decremented).
 
 ## Deployment
 
-GitHub Pages hosts the `main` branch root. After any change:
+GitHub Pages hosts the `master` branch root. After any change:
 ```
 git add <files>
 git commit -m "description"
@@ -274,7 +275,7 @@ Live site updates in ~1–2 minutes. No build step.
 
 ---
 
-## Where we left off (as of 2026-05-23)
+## Where we left off (as of 2026-06-06)
 
 The app is **complete and live**. All 8 sections are working. The most recently completed work:
 - Material narrowed to green p01–p16 + yellow p01–p03 (verified by re-reading all 19 pages)
@@ -317,7 +318,8 @@ The app is **complete and live**. All 8 sections are working. The most recently 
 - `exam-material/links.html` created: kid-friendly page with all 10 exam prep links
 - Teacher PDFs rendered to PNG images in `exam-material/images/`
 
-**No outstanding bugs or pending tasks.** Waiting for next user review feedback.
+**The exam took place on May 26, 2026. The app is complete. No outstanding bugs or pending tasks.**
+The app may be reused for a future exam by updating the CONFIG block in `data.js` and replacing `DATA` content.
 
 ---
 
